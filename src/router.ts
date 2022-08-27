@@ -20,7 +20,8 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/spreadsheet",
         name: "Spreadsheet",
-        component: () => import("./components/SpreadsheetTable.vue"),
+        component: () =>
+          import("./components/spreadsheet/SpreadsheetTable.vue"),
       },
       {
         path: "/simpleTable",
