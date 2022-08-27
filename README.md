@@ -2,34 +2,6 @@
 
 iCompose is a component library made with Vue 3 + TypeScript + Vite + Tailwind CSS.
 
-Changelog:
-
-:star: 0.1.0
-
-Spreadsheet Table with the next features:<br /><br />
-    :heavy_check_mark: Options dialog (simple/multiple selections; enable filtering or sorting data from headers).<br />
-    :heavy_check_mark: The data can be downloaded in a Excel file.<br />
-    :heavy_check_mark: Copy&Paste information selecting rows, cols, or a group of cells by area.<br />
-
-:star: 0.2.0
-Simple Data Table with the next features:<br /><br />
-    :heavy_check_mark: Pagination options (rows per page; reset config button and to view rows 10 by 10<br />
-    :heavy_check_mark: Visual effects on hover cells.<br />
-
-:star: 0.3.0
-Cards:<br /><br />
-    :heavy_check_mark: Added custom cards components<br />
-
-:star: 0.4.0
-Smart form:<br /><br />
-    :heavy_check_mark: Added smart form (the fields are generated depending on the data type) <br />
-
-:star: 0.5.0
-Spreadsheet tutorial:<br /><br />
-    :heavy_check_mark: Added a tutorial on Spreadsheet table view <br />
-
-:start: 0.6.0
-    :heavy_check_mark: TypeScript and Tailwind CSS implementations <br />
 
 
 --------------
