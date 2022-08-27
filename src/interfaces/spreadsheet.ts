@@ -6,3 +6,15 @@ export interface SpreadsheetOptions {
   isUsingFiltering: boolean;
   isUsingSorting: boolean;
 }
+
+export interface SpreadsheetApiResponse {
+  first_name: string;
+  last_name: string;
+  email: string;
+  make: string;
+  model: string;
+  model_year: string;
+  vin: string;
+  date: string;
+  color: string;
+}

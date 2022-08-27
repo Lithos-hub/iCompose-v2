@@ -101,23 +101,34 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, defineProps, ref, Ref } from "vue";
+import { onMounted, ref, Ref, computed } from "vue";
 
 import * as XLSX from "xlsx";
 
 import DialogOptions from "@/components/Dialog-Options.vue";
 import SpreadsheetDynHead from "@/components/Spreadsheet-DynHead.vue";
 
-import { SpreadsheetOptions } from "../../interfaces/spreadsheet";
-import exampleData from "../../api/SpreadSheetData";
+import {
+  SpreadsheetOptions,
+  SpreadsheetApiResponse,
+} from "../../interfaces/spreadsheet";
+
+import { carClients } from "../../api/car-clients";
 
 import useDialog from "../../composables/useDialog";
 import useTable from "../../composables/useTable";
 
-const selectedOptions: Ref<SpreadsheetOptions | object> = ref({});
+const selectedOptions: Ref<SpreadsheetOptions> = ref({
+  isUsingSimpleRow: false,
+  isUsingMultipleRow: false,
+  isUsingSimpleCol: false,
+  isUsingMultipleCol: false,
+  isUsingFiltering: false,
+  isUsingSorting: false,
+});
 
-const data: object[] = ref(exampleData);
-const headers = ref(Object.keys(data.at(0)));
+const data: Ref<SpreadsheetApiResponse>[] = ref(carClients);
+const headers: Ref<string[]> = computed(() => Object.keys(data[0]));
 
 const applyOptions = (options: SpreadsheetOptions): void => {
   selectedOptions.value = options;
@@ -128,7 +139,7 @@ const { sortData, filterByInput } = useTable();
 
 const sortAscen = ref({});
 const filterInput = ref({});
-const isAscending = ref(true);
+const isAscending: Ref<boolean> = ref(true);
 const multipleSelectedRows = ref([]);
 const multipleselectedCols = ref([]);
 
@@ -152,20 +163,20 @@ const filterData = async (head: string, value: unknown): Promise<void> => {
   }, 150);
 };
 
-let initialCol = 0;
-let initialRow = 0;
-let finalCol = 0;
-let finalRow = 0;
-let pasteInformation = "";
+let initialCol: string = "0";
+let initialRow: string = "0";
+let finalCol: string = "0";
+let finalRow: string = "0";
+let pasteInformation: string = "";
 
 const zeroPad = (num: number, places: number) =>
   String(num).padStart(places, "0");
 
 const listenCopyPaste = () => {
   document.addEventListener("paste", (event) => {
-    pasteInformation = (event.clipboardData || window.clipboardData).getData(
-      "text"
-    );
+    pasteInformation = (
+      event.clipboardData || (<any>window).clipboardData
+    ).getData("text");
     const cleanPaste1 = pasteInformation
       .replaceAll("\r", "---")
       .replaceAll("\t", "---")
@@ -176,7 +187,7 @@ const listenCopyPaste = () => {
     const selectedCellsHTML = document.querySelectorAll(".cell-selection");
     selectedCellsHTML.forEach((cell, index) => {
       if (cell.tagName === "INPUT") {
-        const cellToProcess = cell;
+        const cellToProcess = cell as HTMLInputElement;
         cellToProcess.value = splittedPaste[index] ? splittedPaste[index] : "";
       }
     });
@@ -190,18 +201,21 @@ const cleanSelections = () => {
 };
 
 const listenMouseSelectable = () => {
-  function getOffset(el: EventTarget) {
+  function getOffset(el: Element) {
     const rect = el.getBoundingClientRect();
     return {
       left: `${rect.left + window.scrollX}px`,
       top: `${rect.top + window.scrollY}px`,
     };
   }
-  const tableBody: HTMLTableSectionElement = document.querySelector("tbody");
+  const tableBody = document.querySelector("tbody") as HTMLElement;
+
   let initialCell = "";
   let finalCell = "";
 
-  tableBody.addEventListener("mousedown", ({ target }: EventTarget): void => {
+  tableBody.addEventListener("mousedown", (event: Event): void => {
+    const target = event.target as HTMLElement;
+
     if (target.tagName === "INPUT") {
       // ? Clean process ? //
       initialCell = "";
@@ -212,14 +226,16 @@ const listenMouseSelectable = () => {
       const div = document.createElement("div");
       tableBody.appendChild(div);
       div.classList.add("drag-div");
-      const dragDiv = document.querySelector(".drag-div");
+
+      const dragDiv = document.querySelector(".drag-div") as HTMLElement;
+
       dragDiv.style.position = "fixed";
       dragDiv.style.background = "transparent";
       dragDiv.style.top = getOffset(target).top;
       dragDiv.style.left = getOffset(target).left;
       // ? End selection area creation ? //
       // ? First cell selected assignation ? //
-      if (target.className.includes("cell__col")) {
+      if ((target as HTMLElement).className.includes("cell__col")) {
         initialCell = target.className;
         finalCell = target.className;
       }
@@ -231,8 +247,8 @@ const listenMouseSelectable = () => {
         dragDiv.style.border = "2px dashed #5340ff";
         dragDiv.style.width = `${event.clientX - dragDiv.offsetLeft}px`;
         dragDiv.style.height = `${event.clientY - dragDiv.offsetTop}px`;
-        if (event.target.className.includes("cell__col")) {
-          finalCell = event.target.className;
+        if (target.className.includes("cell__col")) {
+          finalCell = target.className;
         }
       });
       // ? End selection area drawing when mouseover ? //
