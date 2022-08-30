@@ -1,8 +1,9 @@
 <template>
   <nav
-    class="p-5 w-[250px] h-screen bg-white border-r-indigo-100 drop-shadow-lg overflow-scroll"
+    class="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-0 bg-white right-auto w-[17.5rem] shadow-lg py-5 px-8 overflow-y-auto"
   >
     <h1>Components</h1>
+    <hr class="mt-3" />
     <router-link
       v-for="{ text, to } of menuItems"
       :to="to"
@@ -32,6 +33,10 @@ const menuItems = ref([
   {
     text: "Smart form",
     to: "/smartForm",
+  },
+  {
+    text: "Snackbar",
+    to: "/snackbar",
   },
 ]);
 </script>

@@ -1,3 +1,20 @@
-body {
+html,
+body,
+#app {
   background: linear-gradient(120deg, white, rgb(232, 220, 220));
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.absolute__centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.base__btn {
+  @apply text-white w-auto h-[40px] px-5 rounded-lg  active:bg-white active:text-black duration-150 shadow-lg;
 }

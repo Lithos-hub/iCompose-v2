@@ -2,7 +2,7 @@
   <div class="flex flex-col flex-grow">
     <Navbar />
     <main class="flex flex-1">
-      <SideMenu />
+      <SideMenu class="z-1" />
       <div class="flex-1">
         <router-view />
       </div>

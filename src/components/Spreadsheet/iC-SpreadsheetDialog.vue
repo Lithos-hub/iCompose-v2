@@ -104,7 +104,7 @@
 import { defineEmits, reactive, Ref, ref } from "vue";
 import { SpreadsheetOptions } from "../../interfaces/spreadsheet";
 
-import Switch from "../Switch.vue";
+import Switch from "../iC-Switch.vue";
 
 const emit = defineEmits(["close-dialog", "apply-options"]);
 

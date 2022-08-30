@@ -21,22 +21,27 @@ const routes: RouteRecordRaw[] = [
         path: "/spreadsheet",
         name: "Spreadsheet",
         component: () =>
-          import("./components/spreadsheet/SpreadsheetTable.vue"),
+          import("./components/spreadsheet/iC-SpreadsheetTable.vue"),
       },
       {
         path: "/simpleTable",
         name: "SimpleTable",
-        component: () => import("./components/SimpleTable.vue"),
+        component: () => import("./components/iC-SimpleTable.vue"),
       },
       {
         path: "/card",
         name: "Card",
-        component: () => import("./components/Card.vue"),
+        component: () => import("./components/iC-Card.vue"),
       },
       {
         path: "/smartForm",
         name: "SmartForm",
-        component: () => import("./components/SmartForm.vue"),
+        component: () => import("./components/iC-SmartForm.vue"),
+      },
+      {
+        path: "/snackbar",
+        name: "Snackbar",
+        component: () => import("./views/Snackbar.vue"),
       },
     ],
   },
