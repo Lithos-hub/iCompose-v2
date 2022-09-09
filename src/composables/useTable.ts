@@ -1,6 +1,6 @@
 const useTable = () => {
-  const sortData = (arr: unknown[], field: string, asc: boolean) =>
-    arr.sort((a: unknown, b: unknown) => {
+  const sortData = (arr: unknown[], field: string, asc: boolean): any[] =>
+    arr.sort((a: any, b: any) => {
       const fieldA = a[field].toString().toUpperCase();
       const fieldB = b[field].toString().toUpperCase();
 
@@ -10,8 +10,8 @@ const useTable = () => {
       return 0;
     });
 
-  const filterByInput = (arr: unknown[], field: string, input: string) =>
-    arr.filter((element) =>
+  const filterByInput = (arr: unknown[], field: string, input: string): any[] =>
+    arr.filter((element: any) =>
       element[field].toString().toLowerCase().includes(input.toLowerCase())
     );
 

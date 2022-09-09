@@ -48,7 +48,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .snackbar {
-  @apply absolute bottom-0 left-0 w-full h-[70px] z-40 shadow-md flex justify-between;
+  @apply fixed bottom-0 left-0 w-full h-[75px] z-40 shadow-md flex justify-between;
 }
 .success {
   background-size: cover;

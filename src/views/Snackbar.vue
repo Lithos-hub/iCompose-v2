@@ -7,8 +7,8 @@
     :type="snackbarType"
     @close-snackbar="close"
   />
-  <div class="container relative flex">
-    <div class="absolute__centered flex justify-around w-[40vw]">
+  <div class="grid h-screen place-items-center ml-[250px]">
+    <div class="flex justify-around w-[40vw]">
       <div>
         <button
           class="base__btn bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"

@@ -1,6 +1,6 @@
 <template>
   <div class="table__spreadsheet-wrapper">
-    <DialogOptions
+    <SpreadsheetDialog
       v-if="isShowingOptions"
       @close-dialog="hide"
       @apply-options="applyOptions"
@@ -12,14 +12,14 @@
             <div
               class="table__spreadsheet-header--actions table__spreadsheet-header--showOptions"
             >
-              <mdicon name="cog" />
+              <i class="fa-solid fa-gear"></i>
             </div>
           </th>
           <th
-            v-for="(char, index) in alphabet"
-            :key="index"
+            v-for="(char, i) in alphabet"
+            :key="i"
             class="table__spreadsheet-header--alphabet clickable"
-            @click="selectColumn(index + 1)"
+            @click="selectColumn(i + 1)"
           >
             {{ char }}
           </th>
@@ -29,7 +29,7 @@
             <div
               class="table__spreadsheet-header--actions table__spreadsheet-header--download"
             >
-              <mdicon name="file-excel" />
+              <i class="fa-solid fa-file-excel"></i>
             </div>
           </th>
           <th
@@ -57,33 +57,38 @@
                 (selectedOptions.isUsingSorting && sortAscen[head] === true) ||
                 sortAscen[head] === false
               "
-              ><mdicon v-if="sortAscen[head]" name="chevron-up" /><mdicon
-                v-else
-                name="chevron-down"
-            /></span>
+            >
+              <i
+                :class="
+                  sortAscen[head]
+                    ? 'fa-solid fa-chevron-up'
+                    : 'fa-solid fa-chevron-down'
+                "
+              ></i>
+            </span>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, rowIndex) in data" :key="'B' + rowIndex">
-          <td class="table__spreadsheet-index" @click="selectRow(rowIndex + 1)">
-            {{ rowIndex + 1 }}
+        <tr v-for="(item, i) in data" :key="'B' + i">
+          <td class="table__spreadsheet-index" @click="selectRow(i + 1)">
+            {{ i + 1 }}
           </td>
-          <td v-for="(head, colIndex) in headers" :key="'C' + colIndex">
+          <td v-for="(head, i) in headers" :key="'C' + i">
             <input
               v-if="!Array.isArray(item[head])"
               v-model="item[head]"
-              :class="`cell__column-${zeroPad(
-                colIndex + 1,
+              :class="`cell__column-${zeroPad(i + 1, 2)} cell__row-${zeroPad(
+                i + 1,
                 2
-              )} cell__row-${zeroPad(rowIndex + 1, 2)}`"
+              )}`"
             />
             <select
               v-else
-              :class="`cell__column-${zeroPad(
-                colIndex + 1,
+              :class="`cell__column-${zeroPad(i + 1, 2)} cell__row-${zeroPad(
+                i + 1,
                 2
-              )} cell__row-${zeroPad(rowIndex + 1, 2)}`"
+              )}`"
             >
               <option
                 v-for="(option, index) in item[head]"
@@ -100,13 +105,13 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { onMounted, ref, Ref, computed } from "vue";
+<script lang="ts">
+import { onMounted, ref, Ref, computed, defineComponent } from "vue";
 
 import * as XLSX from "xlsx";
 
-import DialogOptions from "@/components/Dialog-Options.vue";
-import SpreadsheetDynHead from "@/components/Spreadsheet-DynHead.vue";
+import SpreadsheetDialog from "./iC-SpreadsheetDialog.vue";
+import SpreadsheetDynHead from "./iC-SpreadsheetDynHead.vue";
 
 import {
   SpreadsheetOptions,
@@ -118,283 +123,331 @@ import { carClients } from "../../api/car-clients";
 import useDialog from "../../composables/useDialog";
 import useTable from "../../composables/useTable";
 
-const selectedOptions: Ref<SpreadsheetOptions> = ref({
-  isUsingSimpleRow: false,
-  isUsingMultipleRow: false,
-  isUsingSimpleCol: false,
-  isUsingMultipleCol: false,
-  isUsingFiltering: false,
-  isUsingSorting: false,
-});
-
-const data: Ref<SpreadsheetApiResponse>[] = ref(carClients);
-const headers: Ref<string[]> = computed(() => Object.keys(data[0]));
-
-const applyOptions = (options: SpreadsheetOptions): void => {
-  selectedOptions.value = options;
-};
-
-const { isShowingOptions, showOptions, hide } = useDialog();
-const { sortData, filterByInput } = useTable();
-
-const sortAscen = ref({});
-const filterInput = ref({});
-const isAscending: Ref<boolean> = ref(true);
-const multipleSelectedRows = ref([]);
-const multipleselectedCols = ref([]);
-
-const sortAscDescData = async (head: string): Promise<void> => {
-  sortAscen.value[head] = isAscending.value;
-  const dataToSort = data.value;
-  data.value = await sortData(dataToSort, head, sortAscen.value[head]);
-  isAscending.value = !isAscending.value;
-};
-
-const filterData = async (head: string, value: unknown): Promise<void> => {
-  filterInput.value[head] = value;
-  const input = filterInput[head];
-  if (!input) {
-    data.value = props.data;
-  }
-  const dataToFilter = data.value;
-  setTimeout(async () => {
-    const result = await filterByInput(dataToFilter, head, input);
-    data.value = result;
-  }, 150);
-};
-
-let initialCol: string = "0";
-let initialRow: string = "0";
-let finalCol: string = "0";
-let finalRow: string = "0";
-let pasteInformation: string = "";
-
-const zeroPad = (num: number, places: number) =>
-  String(num).padStart(places, "0");
-
-const listenCopyPaste = () => {
-  document.addEventListener("paste", (event) => {
-    pasteInformation = (
-      event.clipboardData || (<any>window).clipboardData
-    ).getData("text");
-    const cleanPaste1 = pasteInformation
-      .replaceAll("\r", "---")
-      .replaceAll("\t", "---")
-      .replaceAll("\t\r", "---")
-      .replaceAll("\n", "");
-
-    const splittedPaste = cleanPaste1.split("---");
-    const selectedCellsHTML = document.querySelectorAll(".cell-selection");
-    selectedCellsHTML.forEach((cell, index) => {
-      if (cell.tagName === "INPUT") {
-        const cellToProcess = cell as HTMLInputElement;
-        cellToProcess.value = splittedPaste[index] ? splittedPaste[index] : "";
-      }
+export default defineComponent({
+  components: {
+    SpreadsheetDialog,
+    SpreadsheetDynHead,
+  },
+  setup() {
+    const selectedOptions: Ref<SpreadsheetOptions> = ref({
+      isUsingSimpleRow: false,
+      isUsingMultipleRow: false,
+      isUsingSimpleCol: false,
+      isUsingMultipleCol: false,
+      isUsingFiltering: false,
+      isUsingSorting: false,
     });
-    event.preventDefault();
-  });
-};
 
-const cleanSelections = () => {
-  const selectedCellsHTML = document.querySelectorAll(".cell-selection");
-  selectedCellsHTML.forEach((cell) => cell.classList.remove("cell-selection"));
-};
+    const data: Ref<SpreadsheetApiResponse[]> = ref(carClients);
+    const clonedData = ref(data.value);
 
-const listenMouseSelectable = () => {
-  function getOffset(el: Element) {
-    const rect = el.getBoundingClientRect();
-    return {
-      left: `${rect.left + window.scrollX}px`,
-      top: `${rect.top + window.scrollY}px`,
+    const headers: Ref<string[]> = computed(
+      () => Object.keys(data[0]) as string[]
+    );
+
+    const applyOptions = (options: SpreadsheetOptions): void => {
+      selectedOptions.value = options;
     };
-  }
-  const tableBody = document.querySelector("tbody") as HTMLElement;
 
-  let initialCell = "";
-  let finalCell = "";
+    const { isShowingOptions, showOptions, hide } = useDialog();
+    const { sortData, filterByInput } = useTable();
 
-  tableBody.addEventListener("mousedown", (event: Event): void => {
-    const target = event.target as HTMLElement;
+    const sortAscen: Ref<undefined | any> = ref(undefined);
+    const filterInput: Ref<undefined | any> = ref(undefined);
+    const isAscending: Ref<boolean> = ref(true);
+    const multipleSelectedRows = ref([]);
+    const multipleselectedCols = ref([]);
 
-    if (target.tagName === "INPUT") {
-      // ? Clean process ? //
-      initialCell = "";
-      finalCell = "";
-      cleanSelections();
-      // ? End clean process ? //
-      // ? Selection area creation ? //
-      const div = document.createElement("div");
-      tableBody.appendChild(div);
-      div.classList.add("drag-div");
+    const sortAscDescData = async (head: string): Promise<void> => {
+      sortAscen.value[head] = isAscending.value;
+      const dataToSort = data.value;
+      data.value = await sortData(dataToSort, head, sortAscen.value[head]);
+      isAscending.value = !isAscending.value;
+    };
 
-      const dragDiv = document.querySelector(".drag-div") as HTMLElement;
-
-      dragDiv.style.position = "fixed";
-      dragDiv.style.background = "transparent";
-      dragDiv.style.top = getOffset(target).top;
-      dragDiv.style.left = getOffset(target).left;
-      // ? End selection area creation ? //
-      // ? First cell selected assignation ? //
-      if ((target as HTMLElement).className.includes("cell__col")) {
-        initialCell = target.className;
-        finalCell = target.className;
+    const filterData = async (head: string, value: unknown): Promise<void> => {
+      filterInput.value[head] = value;
+      const input = filterInput.value[head];
+      if (!input) {
+        data.value = clonedData.value;
       }
-      // ? End first cell selected assignation ? //
+      const dataToFilter = data.value;
+      setTimeout(async () => {
+        const result = await filterByInput(dataToFilter, head, input);
+        data.value = result;
+      }, 150);
+    };
 
-      tableBody.addEventListener("mousemove", (event) => {
-        // ? Selection area drawing when mouseover ? //
-        tableBody.style.cursor = "pointer";
-        dragDiv.style.border = "2px dashed #5340ff";
-        dragDiv.style.width = `${event.clientX - dragDiv.offsetLeft}px`;
-        dragDiv.style.height = `${event.clientY - dragDiv.offsetTop}px`;
-        if (target.className.includes("cell__col")) {
-          finalCell = target.className;
-        }
-      });
-      // ? End selection area drawing when mouseover ? //
-    }
-  });
+    let initialCol: string = "0";
+    let initialRow: string = "0";
+    let finalCol: string = "0";
+    let finalRow: string = "0";
+    let pasteInformation: string = "";
 
-  // ? When mouse up => we remove selection area and select the cells ? //
-  tableBody.addEventListener("mouseup", () => {
-    const div = document.querySelector(".drag-div");
-    if (div) {
-      div.remove();
-      setTimeout(() => {
-        // eslint-disable-next-line prefer-destructuring
-        initialCol = initialCell.split("cell__column-")[1].split(" ")[0];
-        // eslint-disable-next-line prefer-destructuring
-        initialRow = initialCell.split("cell__row-")[1].split(" ")[0];
-        // eslint-disable-next-line prefer-destructuring
-        finalCol = finalCell.split("cell__column-")[1].split(" ")[0];
-        // eslint-disable-next-line prefer-destructuring
-        finalRow = finalCell.split("cell__row-")[1].split(" ")[0];
-        // eslint-disable-next-line no-plusplus
-        for (let i = initialCol; i <= finalCol; i++) {
-          // eslint-disable-next-line no-plusplus
-          for (let j = initialRow; j <= finalRow; j++) {
-            const cellsSelected = document.querySelector(
-              `.cell__column-${zeroPad(i, 2)}.cell__row-${zeroPad(j, 2)}`
-            );
-            cellsSelected.classList.add("cell-selection");
+    const zeroPad = (num: number, places: number) =>
+      String(num).padStart(places, "0");
+
+    const listenCopyPaste = () => {
+      document.addEventListener("paste", (event) => {
+        pasteInformation = (
+          event.clipboardData || (<any>window).clipboardData
+        ).getData("text");
+        const cleanPaste1 = pasteInformation
+          .replaceAll("\r", "---")
+          .replaceAll("\t", "---")
+          .replaceAll("\t\r", "---")
+          .replaceAll("\n", "");
+
+        const splittedPaste = cleanPaste1.split("---");
+        const selectedCellsHTML = document.querySelectorAll(".cell-selection");
+        selectedCellsHTML.forEach((cell, index) => {
+          if (cell.tagName === "INPUT") {
+            const cellToProcess = cell as HTMLInputElement;
+            cellToProcess.value = splittedPaste[index]
+              ? splittedPaste[index]
+              : "";
           }
-        }
-      }, 50);
-    }
-  });
-};
+        });
+        event.preventDefault();
+      });
+    };
 
-const selectRow = (index) => {
-  cleanSelections();
-  const selectedRow = document.querySelectorAll(
-    `.cell__row-${zeroPad(index, 2)}`
-  );
-  if (selectedOptions.isUsingSimpleRow.value) {
-    selectedRow.forEach((row) => {
-      row.classList.add("cell-selection");
-    });
-  } else {
-    if (multipleSelectedRows.some((item) => item.index === index)) {
-      multipleSelectedRows.forEach((row) => {
-        if (row.index === index) {
-          row.selectedRow.forEach((item) => {
-            item.classList.remove("cell-selection");
-          });
-          multipleSelectedRows.splice(multipleSelectedRows.indexOf(row), 1);
-        }
-      });
-    } else {
-      multipleSelectedRows.push({
-        index,
-        selectedRow,
-      });
-    }
-    multipleSelectedRows.forEach((row) => {
-      row.selectedRow.forEach((item) => {
-        item.classList.add("cell-selection");
-      });
-    });
-  }
-};
+    const cleanSelections = () => {
+      const selectedCellsHTML = document.querySelectorAll(".cell-selection");
+      selectedCellsHTML.forEach((cell) =>
+        cell.classList.remove("cell-selection")
+      );
+    };
 
-const selectColumn = (index) => {
-  cleanSelections();
-  const selectedCol = document.querySelectorAll(
-    `.cell__column-${zeroPad(index, 2)}`
-  );
-  if (selectedOptions.isUsingSimpleCol.value) {
-    selectedCol.forEach((col) => {
-      col.classList.add("cell-selection");
-    });
-  } else {
-    if (multipleselectedCols.some((item) => item.index === index)) {
-      multipleselectedCols.forEach((col) => {
-        if (col.index === index) {
-          col.selectedCol.forEach((item) => {
-            item.classList.remove("cell-selection");
-          });
-          multipleselectedCols.splice(multipleselectedCols.indexOf(col), 1);
-        }
-      });
-    } else {
-      multipleselectedCols.push({
-        index,
-        selectedCol,
-      });
-    }
-    multipleselectedCols.forEach((col) => {
-      col.selectedCol.forEach((item) => {
-        item.classList.add("cell-selection");
-      });
-    });
-  }
-};
-
-const generateAlphabet = () => {
-  const alpha = [];
-  const alphabetChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  let counterLoop = 0;
-  const numLoops = Math.floor(props.headers.length / 26);
-
-  alphabetChars.forEach((char, index) => {
-    alpha.push(char);
-
-    while (index === alphabetChars.length - 1 && counterLoop < numLoops) {
-      for (let j = 0; j < alphabetChars.length; j += 1) {
-        alpha.push(alphabetChars[counterLoop] + alphabetChars[j]);
+    const listenMouseSelectable = () => {
+      function getOffset(el: Element) {
+        const rect = el.getBoundingClientRect();
+        return {
+          left: `${rect.left + window.scrollX}px`,
+          top: `${rect.top + window.scrollY}px`,
+        };
       }
-      counterLoop += 1;
-    }
-  });
-  return alpha.slice(0, props.headers.length);
-};
+      const tableBody = document.querySelector("tbody") as HTMLElement;
 
-const alphabet = ref(generateAlphabet());
+      let initialCell = "";
+      let finalCell = "";
 
-const downloadExcel = () => {
-  const columns = headers.map((head) => head);
-  const rows = [];
-  const matrix = [];
+      tableBody.addEventListener("mousedown", (event: Event): void => {
+        const target = event.target as HTMLElement;
 
-  data.value.forEach((el) => {
-    rows.push(Object.values(el));
-  });
-  matrix.push(columns);
-  matrix.push(...rows);
-  const ws = XLSX.utils.aoa_to_sheet(matrix);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Spreadsheet");
-  /* generate file and send to client */
-  const date = new Date();
-  const today = `${date.getDate()}-${
-    date.getMonth() + 1
-  }-${date.getFullYear()}`;
-  XLSX.writeFile(wb, `Filename - ${today}.xlsx`);
-};
+        if (target.tagName === "INPUT") {
+          // ? Clean process ? //
+          initialCell = "";
+          finalCell = "";
+          cleanSelections();
+          // ? End clean process ? //
+          // ? Selection area creation ? //
+          const div = document.createElement("div");
+          tableBody.appendChild(div);
+          div.classList.add("drag-div");
 
-onMounted(() => {
-  listenCopyPaste();
-  listenMouseSelectable();
+          const dragDiv = document.querySelector(".drag-div") as HTMLElement;
+
+          dragDiv.style.position = "fixed";
+          dragDiv.style.background = "transparent";
+          dragDiv.style.top = getOffset(target).top;
+          dragDiv.style.left = getOffset(target).left;
+          // ? End selection area creation ? //
+          // ? First cell selected assignation ? //
+          if ((target as HTMLElement).className.includes("cell__col")) {
+            initialCell = target.className;
+            finalCell = target.className;
+          }
+          // ? End first cell selected assignation ? //
+
+          tableBody.addEventListener("mousemove", (event) => {
+            // ? Selection area drawing when mouseover ? //
+            tableBody.style.cursor = "pointer";
+            dragDiv.style.border = "2px dashed #5340ff";
+            dragDiv.style.width = `${event.clientX - dragDiv.offsetLeft}px`;
+            dragDiv.style.height = `${event.clientY - dragDiv.offsetTop}px`;
+            if (target.className.includes("cell__col")) {
+              finalCell = target.className;
+            }
+          });
+          // ? End selection area drawing when mouseover ? //
+        }
+      });
+
+      // ? When mouse up => we remove selection area and select the cells ? //
+      tableBody.addEventListener("mouseup", () => {
+        const div = document.querySelector(".drag-div");
+        if (div) {
+          div.remove();
+          setTimeout(() => {
+            // eslint-disable-next-line prefer-destructuring
+            initialCol = initialCell.split("cell__column-")[1].split(" ")[0];
+            // eslint-disable-next-line prefer-destructuring
+            initialRow = initialCell.split("cell__row-")[1].split(" ")[0];
+            // eslint-disable-next-line prefer-destructuring
+            finalCol = finalCell.split("cell__column-")[1].split(" ")[0];
+            // eslint-disable-next-line prefer-destructuring
+            finalRow = finalCell.split("cell__row-")[1].split(" ")[0];
+            // eslint-disable-next-line no-plusplus
+            for (let i = initialCol; i <= finalCol; i++) {
+              // eslint-disable-next-line no-plusplus
+              for (let j = initialRow; j <= finalRow; j++) {
+                const cellsSelected = document.querySelector(
+                  `.cell__column-${zeroPad(i, 2)}.cell__row-${zeroPad(j, 2)}`
+                );
+                cellsSelected.classList.add("cell-selection");
+              }
+            }
+          }, 50);
+        }
+      });
+    };
+
+    const selectRow = (index: number) => {
+      cleanSelections();
+      const selectedRow = document.querySelectorAll(
+        `.cell__row-${zeroPad(index, 2)}`
+      );
+      if (selectedOptions.isUsingSimpleRow.value) {
+        selectedRow.forEach((row) => {
+          row.classList.add("cell-selection");
+        });
+      } else {
+        if (multipleSelectedRows.some((item) => item.index === index)) {
+          multipleSelectedRows.forEach((row) => {
+            if (row.index === index) {
+              row.selectedRow.forEach((item) => {
+                item.classList.remove("cell-selection");
+              });
+              multipleSelectedRows.splice(multipleSelectedRows.indexOf(row), 1);
+            }
+          });
+        } else {
+          multipleSelectedRows.push({
+            index,
+            selectedRow,
+          });
+        }
+        multipleSelectedRows.forEach((row) => {
+          row.selectedRow.forEach((item) => {
+            item.classList.add("cell-selection");
+          });
+        });
+      }
+    };
+
+    const selectColumn = (index: number): void => {
+      cleanSelections();
+      const selectedCol = document.querySelectorAll(
+        `.cell__column-${zeroPad(index, 2)}`
+      );
+      if (selectedOptions.isUsingSimpleCol.value) {
+        selectedCol.forEach((col) => {
+          col.classList.add("cell-selection");
+        });
+      } else {
+        if (multipleselectedCols.some((item) => item.index === index)) {
+          multipleselectedCols.forEach((col) => {
+            if (col.index === index) {
+              col.selectedCol.forEach((item) => {
+                item.classList.remove("cell-selection");
+              });
+              multipleselectedCols.splice(multipleselectedCols.indexOf(col), 1);
+            }
+          });
+        } else {
+          multipleselectedCols.push({
+            index,
+            selectedCol,
+          });
+        }
+        multipleselectedCols.forEach((col) => {
+          col.selectedCol.forEach((item) => {
+            item.classList.add("cell-selection");
+          });
+        });
+      }
+    };
+
+    const generateAlphabet = (): string[] => {
+      const alpha = [];
+      const alphabetChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      let counterLoop = 0;
+      const numLoops = Math.floor(props.headers.length / 26);
+
+      alphabetChars.forEach((char, index) => {
+        alpha.push(char);
+
+        while (index === alphabetChars.length - 1 && counterLoop < numLoops) {
+          for (let j = 0; j < alphabetChars.length; j += 1) {
+            alpha.push(alphabetChars[counterLoop] + alphabetChars[j]);
+          }
+          counterLoop += 1;
+        }
+      });
+      return alpha.slice(0, props.headers.length);
+    };
+
+    const alphabet = ref(generateAlphabet());
+
+    const downloadExcel = (): void => {
+      const columns = headers.map((head) => head);
+      const rows = [];
+      const matrix = [];
+
+      data.value.forEach((el) => {
+        rows.push(Object.values(el));
+      });
+      matrix.push(columns);
+      matrix.push(...rows);
+      const ws = XLSX.utils.aoa_to_sheet(matrix);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Spreadsheet");
+      /* generate file and send to client */
+      const date = new Date();
+      const today = `${date.getDate()}-${
+        date.getMonth() + 1
+      }-${date.getFullYear()}`;
+      XLSX.writeFile(wb, `Filename - ${today}.xlsx`);
+    };
+
+    onMounted(() => {
+      listenCopyPaste();
+      listenMouseSelectable();
+    });
+
+    return {
+      selectedOptions,
+      clonedData,
+      data,
+      headers,
+      isShowingOptions,
+      showOptions,
+      hide,
+      sortData,
+      filterByInput,
+      sortAscen,
+      filterInput,
+      isAscending,
+      multipleSelectedRows,
+      multipleselectedCols,
+      sortAscDescData,
+      filterData,
+      initialCol,
+      initialRow,
+      finalCol,
+      finalRow,
+      pasteInformation,
+      zeroPad,
+      listenCopyPaste,
+      cleanSelections,
+      listenMouseSelectable,
+      selectRow,
+      selectColumn,
+      generateAlphabet,
+      downloadExcel,
+    };
+  },
 });
 </script>
 

@@ -4,8 +4,13 @@ body,
   background: linear-gradient(120deg, white, rgb(232, 220, 220));
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  margin-left: 10em;
+  margin-right: 13em;
 }
 
 .absolute__centered {

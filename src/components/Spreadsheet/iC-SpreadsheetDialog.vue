@@ -100,35 +100,44 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineEmits, reactive, Ref, ref } from "vue";
+<script lang="ts">
+import { defineComponent, Ref, ref } from "vue";
 import { SpreadsheetOptions } from "../../interfaces/spreadsheet";
 
 import Switch from "../iC-Switch.vue";
 
-const emit = defineEmits(["close-dialog", "apply-options"]);
+export default defineComponent({
+  emits: ["close-dialog", "apply-options"],
+  components: {
+    Switch,
+  },
+  setup(props, { emit }) {
+    const label = ref({
+      true: "Active",
+      false: "Inactive",
+    });
 
-const label = reactive({
-  true: "Active",
-  false: "Inactive",
+    const options: Ref<SpreadsheetOptions> = ref({
+      isUsingSimpleRow: false,
+      isUsingMultipleRow: false,
+      isUsingSimpleCol: false,
+      isUsingMultipleCol: false,
+      isUsingFiltering: false,
+      isUsingSorting: false,
+    });
+
+    const closeDialog = (): void => emit("close-dialog", false);
+
+    const applyOptions = (): void => emit("apply-options", options);
+
+    return {
+      label,
+      options,
+      closeDialog,
+      applyOptions,
+    };
+  },
 });
-
-const options: Ref<SpreadsheetOptions> = ref({
-  isUsingSimpleRow: false,
-  isUsingMultipleRow: false,
-  isUsingSimpleCol: false,
-  isUsingMultipleCol: false,
-  isUsingFiltering: false,
-  isUsingSorting: false,
-});
-
-const closeDialog = (): void => {
-  emit("close-dialog", false);
-};
-
-const applyOptions = (): void => {
-  emit("apply-options", options);
-};
 </script>
 
 <style lang="scss">
