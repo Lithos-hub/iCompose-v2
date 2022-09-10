@@ -7,7 +7,7 @@
       <div
         class="py-1 px-2 ml-5 bg-indigo-800 text-cyan-200 font-semibold rounded-full"
       >
-        v0.0.1
+        v{{ version }}
       </div>
     </div>
     <div class="flex flex-row justify-around">
@@ -24,6 +24,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+
+const version = "0.2.0";
 
 const menuItems = ref([
   {

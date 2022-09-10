@@ -31,12 +31,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/card",
         name: "Card",
-        component: () => import("./components/iC-Card.vue"),
+        component: () => import("./views/Card.vue"),
+      },
+      {
+        path: "/form",
+        name: "Form",
+        component: () => import("./views/Form.vue"),
       },
       {
         path: "/smartForm",
         name: "SmartForm",
-        component: () => import("./components/iC-SmartForm.vue"),
+        component: () => import("./views/SmartForm.vue"),
       },
       {
         path: "/snackbar",

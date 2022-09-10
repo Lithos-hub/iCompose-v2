@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[600px] overflow-y-scroll mt-[10vh] shadow-lg"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[600px] overflow-y-scroll shadow-lg"
   >
     <table class="bg-white rounded-t-lg text-center">
       <thead>
