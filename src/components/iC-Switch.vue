@@ -15,13 +15,13 @@
           : 'slide__thumb slide__thumb--inactive'
       "
     ></div>
-    <span class="slide__label">{{ props.label[modelValue] }}</span>
+    <span class="slide__label">{{ label[modelValue.toString()] }}</span>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useCounterStore } from '@/stores/counter';
+// import { useCounterStore } from "@/stores/counter";
 
 export default defineComponent({
   props: {
@@ -59,8 +59,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "@/scss/app.scss";
-@import "@/scss/variables.scss";
+@import "../scss/app.scss";
+@import "../scss/variables.scss";
+@import "../scss/colors.scss";
 
 // * Custom Switch * //
 

@@ -141,9 +141,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "@/scss/app.scss";
-@import "@/scss/variables.scss";
-@import "@/scss/colors.scss";
+@import "../../scss/app.scss";
+@import "../../scss/variables.scss";
+@import "../../scss/colors.scss";
 
 .dialog__overlay {
   z-index: 9999;

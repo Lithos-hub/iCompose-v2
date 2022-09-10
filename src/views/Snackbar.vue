@@ -7,7 +7,7 @@
     :type="snackbarType"
     @close-snackbar="close"
   />
-  <div class="grid h-screen place-items-center ml-[250px]">
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
     <div class="flex justify-around w-[40vw]">
       <div>
         <button

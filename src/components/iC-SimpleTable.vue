@@ -1,12 +1,12 @@
 <template>
   <div
-    class="relative w-full max-h-[600px] overflow-y-scroll mt-[10vh] mx-[10em] shadow-lg"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[600px] overflow-y-scroll mt-[10vh] shadow-lg"
   >
-    <table class="bg-white rounded-t-lg w-full text-center">
+    <table class="bg-white rounded-t-lg text-center">
       <thead>
         <tr>
           <th
-            class="px-5 py-3 border-r bg-sky-900 text-white first:rounded-tl-lg sticky top-0"
+            class="px-5 py-3 border-r bg-sky-900 text-white first:rounded-tl-lg sticky top-0 min-w-[200px]"
             v-for="({ text }, i) in headers"
             :key="'A' + i"
           >

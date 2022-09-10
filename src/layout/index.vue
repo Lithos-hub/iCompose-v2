@@ -2,11 +2,9 @@
   <div class="flex flex-col flex-grow">
     <Navbar />
     <main class="flex flex-1">
-      <SideMenu class="z-1" />
-      <div class="flex-1">
-        <div class="container relative">
-          <router-view />
-        </div>
+      <SideMenu class="z-20 w-[75px] hover:w-[300px]" />
+      <div class="flex-1 container relative mx-auto">
+        <router-view />
       </div>
     </main>
   </div>
