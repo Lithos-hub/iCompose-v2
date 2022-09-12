@@ -1,17 +1,17 @@
 <template>
   <div ref="component" class="flex flex-col">
-    <label class="m-2 font-medium">Autocomplete</label>
+    <label class="m-2 font-medium" v-if="label">{{ label }}</label>
     <div class="relative">
       <input
         :value="modelValue"
         @input="
-          $emit('update:modelValue', ($event.target as EventTarget).value)
+          $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
-        class="p-3 pl-5 rounded-full hover:shadow-lg focus:outline-none focus:rounded-b-none focus:rounded-t-[25px] duration-200 ease-in-out"
-        placeholder="Write here"
+        class="p-3 pl-5 rounded-full w-full hover:shadow-lg focus:outline-none focus:rounded-b-none focus:rounded-t-[25px] transition-all duration-200 ease-in-out"
+        :placeholder="placeholder"
       />
       <i
-        class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2"
+        class="fa-solid fa-magnifying-glass absolute right-6 top-1/2 -translate-y-1/2"
       ></i>
     </div>
     <div class="absolute top-[90px] w-[213px] rounded-lg" v-if="isSearching">
@@ -38,10 +38,19 @@
 <script lang="ts" setup>
 import { Ref, ref, watch, onMounted } from "vue";
 
-const props = defineProps<{
-  modelValue: string;
-  data: any[];
-}>();
+/* It doesn't work
+  import { FormProps } from "../interfaces/form";
+*/
+
+const props = withDefaults(
+  defineProps<{
+    label?: string;
+    placeholder?: string;
+    modelValue: string;
+    data: any[];
+  }>(),
+  {}
+);
 
 const emit = defineEmits(["update:modelValue", "on-search"]);
 

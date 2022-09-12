@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col">
-    <label class="m-2 font-medium">Select</label>
+    <label class="m-2 font-medium" v-if="label">{{ label }}</label>
     <div class="relative">
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-full hover:shadow-lg focus:outline-none w-[213px]"
-        placeholder="Select an item"
+        class="p-3 pl-5 rounded-full hover:shadow-lg focus:outline-none w-full"
+        :placeholder="placeholder"
         @click="isSearching = true"
       />
       <i
@@ -28,27 +28,49 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, Ref, onMounted } from "vue";
+/* It doesn't work
+  import { FormProps } from "../interfaces/form";
+*/
 
-const props = defineProps<{
-  modelValue: string;
-  data: any[];
-}>();
+const props = withDefaults(
+  defineProps<{
+    label?: string;
+    placeholder?: string;
+    modelValue: string;
+    data: any[];
+  }>(),
+  {}
+);
 
 const emit = defineEmits(["update:modelValue", "on-select"]);
 
-const isSearching = ref(false);
+const isSearching: Ref<boolean> = ref(false);
 
-const onItemClick = (item: any) => {
+const onItemClick = (item: any): void => {
   isSearching.value = false;
   emit("on-select", item);
 };
+
+const onListenMouseClick = () => {
+  document.addEventListener("click", (event: MouseEvent) => {
+    const element = event.target as HTMLElement;
+    if (element.tagName !== "INPUT" && element.tagName !== "LI") {
+      isSearching.value = false;
+    }
+  });
+};
+
+onMounted(() => {
+  onListenMouseClick();
+});
 </script>
 
 <style lang="scss" scoped>
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   text-indent: 1px;
   text-overflow: "";
 }
