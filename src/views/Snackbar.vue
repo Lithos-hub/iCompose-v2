@@ -1,5 +1,5 @@
 <template>
-  <iCSnackbar
+  <Snackbar
     v-if="show"
     title="Notification title"
     message="Notification message"
@@ -42,12 +42,12 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
-import iCSnackbar from "../components/iC-Snackbar.vue";
+import Snackbar from "../components/Snackbar.vue";
 
 export default defineComponent({
   name: "Snackbar",
   components: {
-    iCSnackbar,
+    Snackbar,
   },
   setup() {
     const show = ref(false);

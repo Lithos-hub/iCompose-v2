@@ -38,5 +38,3 @@ const menuItems = ref([
   },
 ]);
 </script>
-
-<style lang="" scoped></style>

@@ -15,7 +15,7 @@
       </ul>
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-full hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer"
+        class="p-3 pl-5 rounded-[25px] hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer"
         :placeholder="placeholder"
         @click="isSearching = true"
       />

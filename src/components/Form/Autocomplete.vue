@@ -7,7 +7,7 @@
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
-        class="p-3 pl-5 rounded-full w-full hover:shadow-lg focus:outline-none transition-all duration-200 ease-in-out"
+        class="p-3 pl-5 rounded-[25px] w-full hover:shadow-lg focus:outline-none transition-all duration-200 ease-in-out"
         :placeholder="placeholder"
       />
       <i

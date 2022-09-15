@@ -72,6 +72,11 @@ const menuItems = ref([
     icon: "fa-solid fa-font",
   },
   {
+    text: "Calendar",
+    to: "/calendar",
+    icon: "fa-regular fa-calendar",
+  },
+  {
     text: "Snackbar",
     to: "/snackbar",
     icon: "fa-solid fa-circle-exclamation",

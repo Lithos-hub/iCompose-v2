@@ -2,21 +2,21 @@
   <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
     <div class="grid grid-cols-3 gap-10">
       <div>
-        <ICInput
+        <Input
           v-model="inputs.normal"
           label="Text field"
           placeholder="Write here"
         />
       </div>
       <div>
-        <ICTextarea
+        <Textarea
           v-model="inputs.textarea"
           label="Text area"
           placeholder="Write here"
         />
       </div>
       <div>
-        <ICAutocomplete
+        <Autocomplete
           v-model="inputs.search"
           label="Autocomplete"
           placeholder="Write here"
@@ -25,7 +25,7 @@
         />
       </div>
       <div>
-        <ICSelect
+        <Select
           v-model="inputs.select"
           label="Select"
           placeholder="Select an item"
@@ -34,7 +34,7 @@
         />
       </div>
       <div>
-        <ICMultiSelect
+        <MultiSelect
           v-model="inputs.multiselect"
           label="Multi Select"
           placeholder="Select several items"
@@ -43,7 +43,7 @@
         />
       </div>
       <div>
-        <ICOTP v-model="inputs.otp" label="OTP" />
+        <OTP v-model="inputs.otp" label="OTP" />
         <small class="ml-1 text-gray-600">Output: {{ inputs.otp }} </small>
       </div>
     </div>
@@ -53,12 +53,12 @@
 <script lang="ts" setup>
 import { Ref, ref } from "vue";
 
-import ICInput from "../components/form/iC-Input.vue";
-import ICAutocomplete from "../components/form/iC-Autocomplete.vue";
-import ICSelect from "../components/form/iC-Select.vue";
-import ICMultiSelect from "../components/Form/iC-MultiSelect.vue";
-import ICOTP from "../components/Form/iC-OTP.vue";
-import ICTextarea from "../components/Form/iC-Textarea.vue";
+import Input from "../components/form/Input.vue";
+import Autocomplete from "../components/form/Autocomplete.vue";
+import Select from "../components/form/Select.vue";
+import MultiSelect from "../components/Form/MultiSelect.vue";
+import OTP from "../components/Form/OTP.vue";
+import Textarea from "../components/Form/Textarea.vue";
 
 const inputs = ref({
   normal: "",

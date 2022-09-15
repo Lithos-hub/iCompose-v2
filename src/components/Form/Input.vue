@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col">
     <label class="m-2 font-medium" v-if="label">{{ label }}</label>
-    <textarea
+    <input
       :value="modelValue"
       @input="
-        $emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
-      class="p-3 pl-5 rounded-2xl hover:shadow-lg focus:outline-none duration-200 ease-in-out"
+      :class="bordered ? 'input border' : 'input'"
       :placeholder="placeholder"
     />
   </div>
@@ -14,8 +14,8 @@
 
 <script lang="ts" setup>
 /* It doesn't work
-    import { FormProps } from "../interfaces/form";
-  */
+  import { FormProps } from "../interfaces/form";
+*/
 
 defineEmits(["update:modelValue"]);
 
@@ -24,7 +24,15 @@ const props = withDefaults(
     label?: string;
     placeholder?: string;
     modelValue: string;
+    data?: any[];
+    bordered?: boolean;
   }>(),
   {}
 );
 </script>
+
+<style lang="scss" scoped>
+.input {
+  @apply p-3 pl-5 rounded-[25px] hover:shadow-lg focus:outline-none duration-200 ease-in-out;
+}
+</style>

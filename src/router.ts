@@ -21,12 +21,12 @@ const routes: RouteRecordRaw[] = [
         path: "/spreadsheet",
         name: "Spreadsheet",
         component: () =>
-          import("./components/Spreadsheet/iC-SpreadsheetTable.vue"),
+          import("./components/Spreadsheet/SpreadsheetTable.vue"),
       },
       {
         path: "/simpleTable",
         name: "SimpleTable",
-        component: () => import("./components/iC-SimpleTable.vue"),
+        component: () => import("./components/SimpleTable.vue"),
       },
       {
         path: "/card",
@@ -42,6 +42,11 @@ const routes: RouteRecordRaw[] = [
         path: "/smartForm",
         name: "SmartForm",
         component: () => import("./views/SmartForm.vue"),
+      },
+      {
+        path: "/calendar",
+        name: "Calendar",
+        component: () => import("./components/calendar/CalendarGrid.vue"),
       },
       {
         path: "/snackbar",
