@@ -8,14 +8,14 @@
         maxlength="1"
         autocomplete="off"
         class="mx-1 w-[50px] h-[50px] shadow-md border-zinc-800 rounded-md text-[30px] text-center hover:shadow-lg focus:outline-none"
-        @input="onInput"
+        @input="onInput($event)"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, onMounted, watch } from "vue";
+import { ref, Ref, watch } from "vue";
 /* It doesn't work
     import { FormProps } from "../interfaces/form";
   */
@@ -44,12 +44,13 @@ const inputValue = ref(
   )
 );
 
-const onInput = ($event: InputEvent) => {
-  console.log($event);
-  const {
-    target: { id },
-    inputType,
-  } = $event;
+const onInput = (event: Event): void => {
+  const e = event as InputEvent;
+  const inputType = e.inputType;
+
+  const { target } = event;
+  const id = (target as HTMLInputElement).id;
+
   const [_, index] = id.split("-");
 
   let numIndex = Number(index);
@@ -63,12 +64,10 @@ const onInput = ($event: InputEvent) => {
     const prevInput = document.querySelector(
       `#input-${otpCounter.value}`
     ) as HTMLElement | null;
-    console.log(prevInput);
     setTimeout(() => {
       prevInput?.focus();
     }, 250);
   } else {
-    console.log(nextInput);
     if (nextInput) {
       otpCounter.value > 5 ? (otpCounter.value = 5) : otpCounter.value++;
       nextInput.focus();

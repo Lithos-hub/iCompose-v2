@@ -64,7 +64,7 @@ const isSearching = ref(false);
 
 const results: Ref<string[] | []> = ref([]);
 
-const onItemClick = (item: any) => {
+const onItemClick = (item: any): void => {
   emit("on-search", item);
 };
 

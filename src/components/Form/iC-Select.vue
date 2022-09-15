@@ -54,7 +54,7 @@ const onItemClick = (item: any): void => {
   emit("on-select", item);
 };
 
-const onListenMouseClick = () => {
+const onListenMouseClick = (): void => {
   document.addEventListener("click", (event: MouseEvent) => {
     const element = event.target as HTMLElement;
     if (element.tagName !== "INPUT" && element.tagName !== "LI") {

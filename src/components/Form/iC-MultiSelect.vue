@@ -81,7 +81,7 @@ const onItemClick = (item: string): void => {
   emit("on-select", checkbox);
 };
 
-const onListenMouseClick = () => {
+const onListenMouseClick = (): void => {
   document.addEventListener("click", (event: MouseEvent) => {
     const element = event.target as HTMLElement;
     if (!multiselect.value.contains(element)) {

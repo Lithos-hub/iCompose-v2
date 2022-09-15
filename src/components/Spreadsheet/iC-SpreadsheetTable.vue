@@ -76,9 +76,9 @@ export default defineComponent({
       isUsingSorting: false,
     });
 
-    const defaultRows = ref(50);
-    const defaultCols = ref(40);
-    const refreshComponent = ref(0);
+    const defaultRows: Ref<number> = ref(50);
+    const defaultCols: Ref<number> = ref(40);
+    const refreshComponent: Ref<number> = ref(0);
 
     const spreadsheetInput = ref();
 
@@ -108,8 +108,6 @@ export default defineComponent({
 
     const generateAlphabet = (): void => {
       const alphabetChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-      const alphabetLength = alphabetChars.length as number;
-      const numLoops = Math.floor(defaultCols.value / 26);
       let counterLoop = 0;
       let arr: string[] = [];
 
