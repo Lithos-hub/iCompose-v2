@@ -11,12 +11,14 @@
       <i
         class="fa-solid fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-[12px]"
       ></i>
-      <div class="absolute top-[00px] w-[213px] rounded-lg" v-if="isSearching">
-        <ul>
+      <div class="absolute top-[50px] w-full rounded-lg" v-if="isSearching">
+        <ul
+          class="max-h-[300px] overflow-auto rounded-t-[25px] rounded-b-[25px]"
+        >
           <li
             v-for="(item, i) of props.data"
             :key="i"
-            class="p-2 border-b bg-white hover:bg-slate-100 poin cursor-pointer first:rounded-t-[25px] last:rounded-b-[25px]"
+            class="p-2 border-b bg-white hover:bg-slate-100 w-full poin cursor-pointer first:rounded-t-[25px] last:rounded-b-[25px]"
             @click="onItemClick(item)"
           >
             <span class="pl-3">{{ item }}</span>

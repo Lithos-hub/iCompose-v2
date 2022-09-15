@@ -7,30 +7,34 @@
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
-        class="p-3 pl-5 rounded-full w-full hover:shadow-lg focus:outline-none focus:rounded-b-none focus:rounded-t-[25px] transition-all duration-200 ease-in-out"
+        class="p-3 pl-5 rounded-full w-full hover:shadow-lg focus:outline-none transition-all duration-200 ease-in-out"
         :placeholder="placeholder"
       />
       <i
         class="fa-solid fa-magnifying-glass absolute right-6 top-1/2 -translate-y-1/2"
       ></i>
-    </div>
-    <div class="absolute top-[90px] w-[213px] rounded-lg" v-if="isSearching">
-      <ul v-if="hasResults">
-        <li
-          v-for="(item, i) of results"
-          :key="i"
-          class="p-2 border-b bg-white hover:bg-slate-100 poin cursor-pointer last:rounded-b-[25px]"
-          @click="onItemClick(item)"
+      <div class="absolute top-[50px] w-full rounded-lg" v-if="isSearching">
+        <div v-if="hasResults">
+          <ul
+            class="max-h-[300px] overflow-auto rounded-t-[25px] rounded-b-[25px]"
+          >
+            <li
+              v-for="(item, i) of results"
+              :key="i"
+              class="p-2 border-b bg-white hover:bg-slate-100 poin cursor-pointer last:rounded-b-[25px]"
+              @click="onItemClick(item)"
+            >
+              <span class="pl-3">{{ item }}</span>
+            </li>
+          </ul>
+        </div>
+        <p
+          v-else
+          class="py-2 border-b text-[12px] text-slate-500 text-center bg-white rounded-b-[25px]"
         >
-          <span class="pl-3">{{ item }}</span>
-        </li>
-      </ul>
-      <p
-        v-else
-        class="py-2 border-b text-[12px] text-slate-500 text-center bg-white rounded-b-[25px]"
-      >
-        No results found
-      </p>
+          No results found
+        </p>
+      </div>
     </div>
   </div>
 </template>

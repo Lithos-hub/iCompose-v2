@@ -1,10 +1,17 @@
 <template>
-  <div class="fixed top-[20em] left-1/2 -translate-x-1/2 -translate-y-1/2">
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
     <div class="grid grid-cols-3 gap-10">
       <div>
         <ICInput
           v-model="inputs.normal"
           label="Text field"
+          placeholder="Write here"
+        />
+      </div>
+      <div>
+        <ICTextarea
+          v-model="inputs.textarea"
+          label="Text area"
           placeholder="Write here"
         />
       </div>
@@ -51,6 +58,7 @@ import ICAutocomplete from "../components/form/iC-Autocomplete.vue";
 import ICSelect from "../components/form/iC-Select.vue";
 import ICMultiSelect from "../components/Form/iC-MultiSelect.vue";
 import ICOTP from "../components/Form/iC-OTP.vue";
+import ICTextarea from "../components/Form/iC-Textarea.vue";
 
 const inputs = ref({
   normal: "",
@@ -58,6 +66,7 @@ const inputs = ref({
   select: "",
   multiselect: [] as string[],
   otp: "",
+  textarea: "",
 });
 
 const searchItems: Ref<string[]> = ref([

@@ -8,7 +8,7 @@
         maxlength="1"
         autocomplete="off"
         class="mx-1 w-[50px] h-[50px] shadow-md border-zinc-800 rounded-md text-[30px] text-center hover:shadow-lg focus:outline-none"
-        @input="onInput(`input-${i + 1}`)"
+        @input="onInput"
       />
     </div>
   </div>
@@ -31,6 +31,7 @@ const props = withDefaults(
 );
 
 const numOfInputs: Ref<number> = ref(5);
+const otpCounter: Ref<number> = ref(1);
 
 const inputValue = ref(
   Object.assign(
@@ -43,11 +44,35 @@ const inputValue = ref(
   )
 );
 
-const onInput = (id: string) => {
-  const nextInput = document.querySelector(`#${id}`) as HTMLElement | null;
+const onInput = ($event: InputEvent) => {
+  console.log($event);
+  const {
+    target: { id },
+    inputType,
+  } = $event;
+  const [_, index] = id.split("-");
 
-  if (nextInput) {
-    nextInput.focus();
+  let numIndex = Number(index);
+
+  let nextInput = document.querySelector(
+    `#input-${numIndex > 5 ? 5 : numIndex + 1}`
+  ) as HTMLElement | null;
+
+  if (inputType === "deleteContentBackward") {
+    otpCounter.value === 0 ? (otpCounter.value = 1) : otpCounter.value--;
+    const prevInput = document.querySelector(
+      `#input-${otpCounter.value}`
+    ) as HTMLElement | null;
+    console.log(prevInput);
+    setTimeout(() => {
+      prevInput?.focus();
+    }, 250);
+  } else {
+    console.log(nextInput);
+    if (nextInput) {
+      otpCounter.value > 5 ? (otpCounter.value = 5) : otpCounter.value++;
+      nextInput.focus();
+    }
   }
 };
 
@@ -60,4 +85,16 @@ watch(
 );
 </script>
 
-<style lang="" scoped></style>
+<style lang="scss" scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none;
+}
+</style>
