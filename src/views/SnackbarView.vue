@@ -11,7 +11,7 @@
     <div class="flex justify-around w-[40vw]">
       <div>
         <button
-          class="base__btn bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
+          class="btn__light bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
           @click="open('success')"
         >
           <i class="fa-solid fa-circle-check text-2xl text-green-500"></i>
@@ -20,7 +20,7 @@
       </div>
       <div>
         <button
-          class="base__btn bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
+          class="btn__light bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
           @click="open('info')"
         >
           <i class="fa-solid fa-circle-info text-2xl text-blue-500"></i>
@@ -29,7 +29,7 @@
       </div>
       <div>
         <button
-          class="base__btn bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
+          class="btn__light bg-white hover:shadow-lg hover:scale-110 hover:shadow-slate-400"
           @click="open('error')"
         >
           <i class="fa-solid fa-circle-exclamation text-2xl text-red-500"></i>
@@ -45,7 +45,7 @@ import { defineComponent, Ref, ref } from "vue";
 import Snackbar from "../components/Snackbar.vue";
 
 export default defineComponent({
-  name: "Snackbar",
+  name: "SnackbarView",
   components: {
     Snackbar,
   },

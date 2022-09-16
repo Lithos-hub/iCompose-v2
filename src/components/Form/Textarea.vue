@@ -6,7 +6,7 @@
       @input="
         $emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)
       "
-      :class="bordered ? 'input border' : 'input'"
+      :class="bordered ? 'input border h-[120px]' : 'input h-[120px]'"
       :placeholder="placeholder"
     />
   </div>

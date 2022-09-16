@@ -3,6 +3,8 @@
 </template>
 
 <style lang="scss">
+@import "./scss/app.scss";
+
 /* width */
 ::-webkit-scrollbar {
   width: 7px;

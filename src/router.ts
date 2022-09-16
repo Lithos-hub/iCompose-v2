@@ -10,12 +10,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/home",
         name: "Home",
-        component: () => import("./views/Home.vue"),
+        component: () => import("./views/HomeView.vue"),
       },
       {
         path: "/about",
         name: "About",
-        component: () => import("./views/About.vue"),
+        component: () => import("./views/AboutView.vue"),
       },
       {
         path: "/spreadsheet",
@@ -31,17 +31,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/card",
         name: "Card",
-        component: () => import("./views/Card.vue"),
+        component: () => import("./views/CardView.vue"),
       },
       {
         path: "/form",
         name: "Form",
-        component: () => import("./views/Form.vue"),
+        component: () => import("./views/FormView.vue"),
       },
       {
         path: "/smartForm",
         name: "SmartForm",
-        component: () => import("./views/SmartForm.vue"),
+        component: () => import("./views/SmartFormView.vue"),
       },
       {
         path: "/calendar",
@@ -51,7 +51,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/snackbar",
         name: "Snackbar",
-        component: () => import("./views/Snackbar.vue"),
+        component: () => import("./views/SnackbarView.vue"),
       },
     ],
   },

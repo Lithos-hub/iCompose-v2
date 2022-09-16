@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col flex-grow">
+  <div class="flex flex-col flex-grow w-full h-full m-0 p-0 overflow-hidden">
     <Navbar />
-    <main class="flex flex-1">
+    <main class="flex flex-1 m-0">
       <SideMenu class="z-20 w-[75px] hover:w-[300px]" />
       <div class="flex-1 container relative mx-auto">
         <router-view />

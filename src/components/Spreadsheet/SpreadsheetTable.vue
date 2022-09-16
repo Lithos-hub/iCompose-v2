@@ -169,5 +169,4 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../../scss/app.scss";
-@import "../../scss/variables.scss";
 </style>

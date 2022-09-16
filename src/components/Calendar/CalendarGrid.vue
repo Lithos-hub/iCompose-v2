@@ -1,45 +1,45 @@
 <template>
-  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-    <div class="relative rounded-[25px]">
-      <CalendarDays class="absolute top-7" />
-      <div class="absolute top-10">
-        <div
-          class="grid grid-cols-7 gap-2 relative"
-          v-if="events.some((event) => event !== '')"
-        >
-          <div v-for="n in calendarFirstDay" class="h-[150px] w-[100px]"></div>
-          <CalendarEvents
-            v-for="(event, i) of events"
-            :key="i"
-            :event="event"
-            @delete="deleteEvent"
-          />
-          <div v-for="n in restDaysInMonth" class="h-[150px] w-[100px]"></div>
-        </div>
-      </div>
-      <div class="grid grid-cols-7 gap-2 relative">
-        <div
-          v-for="n in calendarFirstDay"
-          class="bg-indigo-400 border h-[150px] w-[100px]"
-        ></div>
+  <div class="grid grid-flow-col h-screen mx-auto w-full">
+    <div></div>
+    <div class="relative mt-4 w-full max-w-[800px]">
+      <CalendarDays class="absolute top-0" />
+      <div class="grid grid-cols-7 gap-1 relative">
         <CalendarCell
-          v-for="n in totalmonthDays"
-          :number-day="n"
-          @click="showAddEventDialog(n)"
+          class="bg-indigo-200 border"
+          v-for="n in calendarFirstDay"
+          :number-day="
+            n + (typeof prevMonthFirstDay === 'number' ? prevMonthFirstDay : 0)
+          "
         />
-        <div
+        <CalendarCell
+          class="border bg-white shadow-md hover:shadow-md cursor-pointer duration-200 hover:bg-slate-200 hover:border hover:border-indigo-900"
+          v-for="(items, i) of events"
+          :key="i"
+          :number-day="i + 1"
+          :eventItems="items"
+          @delete="deleteEvent"
+          @click="showAddEventDialog(items as EventModel[], i + 1)"
+        />
+        <CalendarCell
+          class="bg-indigo-200 border"
           v-for="n in restDaysInMonth"
-          class="bg-indigo-400 border h-[150px] w-[100px]"
-        ></div>
+          :number-day="n"
+        />
       </div>
     </div>
+    <div>
+      <CalendarDialog
+        class="fixed top-[58px] right-0 h-screen"
+        v-if="openDialog"
+        :date="currentDateData"
+        :events="[...events.at(currentDateData.day - 1)]"
+        :key="reUpdateComponent"
+        @add="addEvent"
+        @delete-event="deleteEvent"
+        @close="openDialog = false"
+      />
+    </div>
   </div>
-  <CalendarDialog
-    v-if="openDialog"
-    :date="currentDateData"
-    @add="addEvent"
-    class="fixed top-1/2 right-10 -translate-y-1/2"
-  />
 </template>
 
 <script lang="ts" setup>
@@ -58,11 +58,10 @@ import {
   getDayName,
 } from "./utils";
 
-import { EventModel } from "../../interfaces/calendar";
+import { EventModel, EventItemsModel } from "../../interfaces/calendar";
 
 import CalendarDialog from "./CalendarDialog.vue";
 import CalendarCell from "./CalendarCell.vue";
-import CalendarEvents from "./CalendarEvents.vue";
 
 const openDialog: Ref<boolean> = ref(false);
 
@@ -74,52 +73,78 @@ const currentDateData = ref({
   day: date.getDate(),
 });
 const currentLeapYear = isLeapYear(currentDateData.value.year);
+const prevMonthFirstDay: Ref<number | undefined> = ref(undefined);
 const calendarFirstDay: Ref<number | undefined> = ref(undefined);
 const calendarLastDay: Ref<number | undefined> = ref(undefined);
 const restDaysInMonth: Ref<number | undefined> = ref(undefined);
 const totalmonthDays: Ref<number | undefined> = ref(undefined);
-const events: Ref<EventModel[] | string[]> = ref(
-  Array.from(Array(totalmonthDays.value).fill(""))
-);
+const events: Ref<any> = ref([]);
+const reUpdateComponent = ref(0);
 
 function isLeapYear(year: number): boolean {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
-const monthFirstDayName = () => {
+const getPrevMonthFirstDay = () => {
+  const { month } = currentDateData.value;
+  const lastDayInMonth = daysInMonth.at(month);
+  prevMonthFirstDay.value =
+    typeof lastDayInMonth === "number" &&
+    typeof calendarFirstDay.value === "number"
+      ? lastDayInMonth - calendarFirstDay.value + 1
+      : 0;
+};
+const getFirstDayPosition = () => {
   const { year, month } = currentDateData.value;
   const date = new Date(`${month}-01-${year}`);
   const day = date.getDay();
   calendarFirstDay.value = day - 1;
 };
-const monthLastDayName = () => {
+const getLastDayPosition = () => {
   const { year, month } = currentDateData.value;
   const lastDayInMonth = daysInMonth.at(month);
   totalmonthDays.value = lastDayInMonth;
+
   const date = new Date(`${month}-${lastDayInMonth}-${year}`);
   const day = date.getDay();
+
   calendarLastDay.value = day - 1;
   restDaysInMonth.value = daysInWeek - calendarLastDay.value - 1;
 };
-const showAddEventDialog = (n: number) => {
-  openDialog.value = true;
+const showAddEventDialog = (items: EventModel[], n: number) => {
   currentDateData.value.day = n;
+  openDialog.value = true;
 };
 const addEvent = (item: EventModel) => {
-  const dayPosition = currentDateData.value.day - 1;
-  events.value[dayPosition] = item;
-};
-const deleteEvent = (item: EventModel) => {
-  const index = events.value.indexOf(item);
-  if (index > -1) {
-    events.value.splice(index, 1);
+  const eventIndex = currentDateData.value.day - 1;
+  const eventWherePush = events.value[eventIndex];
+
+  if (eventWherePush.length) {
+    events.value[eventIndex].push({
+      ...item,
+    });
+  } else {
+    events.value[eventIndex] = [item];
   }
+
+  reUpdateComponent.value++;
+};
+const deleteEvent = (item: EventModel, day: number) => {
+  const listToUpdate = [...events.value[day - 1]];
+
+  events.value[day - 1] = [
+    ...listToUpdate.filter(({ id }: { id: number }) => id !== item.id),
+  ];
 };
 
 onMounted(() => {
-  monthFirstDayName();
-  monthLastDayName();
+  getFirstDayPosition();
+  getLastDayPosition();
+  getPrevMonthFirstDay();
+  events.value = Array.from(Array(totalmonthDays.value).fill([]));
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../../scss/app";
+</style>
