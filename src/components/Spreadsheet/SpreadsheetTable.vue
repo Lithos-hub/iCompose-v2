@@ -23,7 +23,7 @@
       </div>
     </div>
     <div
-      class="w-max max-w-[1600px] max-h-[700px] mx-auto overflow-y-scroll mt-2 shadow-lg"
+      class="w-max max-w-[1600px] max-h-[700px] mx-auto overflow-y-scroll mt-2 shadow-lg bg-slate-400"
     >
       <table>
         <thead class="sticky top-0 bg-slate-400 text-slate-800">

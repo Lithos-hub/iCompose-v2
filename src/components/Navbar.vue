@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="py-3 px-10 flex justify-between border border-b-indigo-100 bg-white"
+    class="z-20 py-3 px-10 flex justify-between border border-b-indigo-100 bg-white"
   >
     <div class="flex">
       <h1 class="text-xl">iCompose</h1>

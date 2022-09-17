@@ -1,9 +1,11 @@
 <template>
-  <div class="grid grid-flow-col h-screen mx-auto w-full">
+  <div class="grid grid-flow-col h-auto mx-auto w-full">
     <div></div>
-    <div class="relative mt-4 w-full max-w-[800px]">
-      <CalendarDays class="absolute top-0" />
-      <div class="grid grid-cols-7 gap-1 relative">
+    <div
+      class="relative mt-4 w-full max-w-[900px] h-auto bg-white p-2 rounded-lg"
+    >
+      <CalendarDays />
+      <div class="grid grid-cols-7 gap-1 relative mt-2">
         <CalendarCell
           class="bg-indigo-200 border"
           v-for="n in calendarFirstDay"
@@ -12,13 +14,17 @@
           "
         />
         <CalendarCell
-          class="border bg-white shadow-md hover:shadow-md cursor-pointer duration-200 hover:bg-slate-200 hover:border hover:border-indigo-900"
+          :class="`${
+            i + 1 === currentDay
+              ? 'cell__default bg-green-100'
+              : 'cell__default bg-white'
+          }`"
           v-for="(items, i) of events"
           :key="i"
           :number-day="i + 1"
           :eventItems="items"
           @delete="deleteEvent"
-          @click="showAddEventDialog(items as EventModel[], i + 1)"
+          @click="showAddEventDialog(i + 1)"
         />
         <CalendarCell
           class="bg-indigo-200 border"
@@ -67,6 +73,7 @@ const openDialog: Ref<boolean> = ref(false);
 
 const date = new Date();
 
+const currentDay = ref(date.getDate());
 const currentDateData = ref({
   year: date.getFullYear(),
   month: date.getMonth() + 1,
@@ -111,7 +118,7 @@ const getLastDayPosition = () => {
   calendarLastDay.value = day - 1;
   restDaysInMonth.value = daysInWeek - calendarLastDay.value - 1;
 };
-const showAddEventDialog = (items: EventModel[], n: number) => {
+const showAddEventDialog = (n: number) => {
   currentDateData.value.day = n;
   openDialog.value = true;
 };

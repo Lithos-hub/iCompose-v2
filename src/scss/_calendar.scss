@@ -1,3 +1,7 @@
 .cell {
-  @apply h-[160px] w-[110px] rounded-md;
+  @apply h-[150px] w-[110px] rounded-md;
+}
+
+.cell__default {
+  @apply border shadow-md hover:shadow-md cursor-pointer duration-200 hover:bg-slate-200 hover:border hover:border-indigo-900;
 }

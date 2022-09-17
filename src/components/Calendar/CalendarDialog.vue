@@ -5,7 +5,9 @@
     <h4 class="text-md mt-2 font-medium">
       Date:
       <span class="p-1 px-3 bg-indigo-800 text-white rounded-[25px]">{{
-        `${date.day}-${date.month}-${date.year}`
+        `${formatDateNumber(date.day)}-${formatDateNumber(date.month)}-${
+          date.year
+        }`
       }}</span>
     </h4>
     <h4 class="text-md mt-10 font-medium">Current events</h4>
@@ -96,6 +98,9 @@ const eventData: Ref<EventModel> = ref({
   description: "",
 });
 
+const formatDateNumber = (num: number) => {
+  return num < 10 ? `0${num}` : num;
+};
 const addEvent = () => {
   emit("add", { id: new Date().getTime() as number, ...eventData.value });
   eventData.value = {
