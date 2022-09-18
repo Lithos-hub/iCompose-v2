@@ -34,16 +34,18 @@
       </div>
     </div>
     <div>
-      <CalendarDialog
-        class="fixed top-[58px] right-0 h-screen"
-        v-if="openDialog"
-        :date="currentDateData"
-        :events="[...events.at(currentDateData.day - 1)]"
-        :key="reUpdateComponent"
-        @add="addEvent"
-        @delete-event="deleteEvent"
-        @close="openDialog = false"
-      />
+      <Transition name="fade">
+        <CalendarDialog
+          class="fixed top-[58px] right-0 h-screen"
+          v-if="openDialog"
+          :date="currentDateData"
+          :events="[...events.at(currentDateData.day - 1)]"
+          :key="reUpdateComponent"
+          @add="addEvent"
+          @delete-event="deleteEvent"
+          @close="openDialog = false"
+        />
+      </Transition>
     </div>
   </div>
 </template>

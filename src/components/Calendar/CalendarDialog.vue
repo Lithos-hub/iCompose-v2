@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow-lg p-5 w-[300px] rounded-lg">
+  <div class="bg-white shadow-lg p-5 w-[350px] rounded-lg">
     <h2 class="text-xl mb-2">Events</h2>
     <hr />
     <h4 class="text-md mt-2 font-medium">
@@ -11,17 +11,22 @@
       }}</span>
     </h4>
     <h4 class="text-md mt-10 font-medium">Current events</h4>
-    <div v-if="events && events.length" class="overflow-y-scroll max-h-[300px]">
+    <div v-if="events && events.length" class="overflow-y-scroll max-h-[200px]">
       <div
         v-for="(item, i) of events"
         :key="i"
-        class="bg-orange-500 rounded-full w-auto p-2 px-3 my-1 flex justify-between"
+        :class="`rounded-full w-auto p-2 px-3 my-1 flex justify-between cursor-pointer border shadow-md ${item.color}`"
+        @click="showEventInfo(item)"
       >
-        <div class="text-white">
+        <div :class="item.color === 'bg-white' ? 'text-black' : 'text-white'">
           {{ item.title }}
         </div>
         <div @click="deleteEvent(item)" class="cursor-pointer">
-          <i class="fa-solid fa-xmark text-white"></i>
+          <i
+            :class="`fa-solid fa-xmark ${
+              item.color === 'bg-white' ? 'text-black' : 'text-white'
+            }`"
+          ></i>
         </div>
       </div>
     </div>
@@ -30,44 +35,46 @@
     </div>
     <hr class="mt-10 mb-5" />
     <h4 class="text-md font-medium">Add new events</h4>
-    <div class="flex flex-col justify-between h-full">
-      <form @submit.prevent="addEvent">
-        <div>
-          <Input
-            v-model="eventData.title"
-            label="Title"
-            placeholder="Title"
-            class="my-2"
-            :bordered="true"
-          />
-          <Textarea
-            v-model="eventData.description"
-            label="Description"
-            placeholder="Description"
-            class="my-2"
-            :bordered="true"
-          />
-        </div>
-        <div class="flex justify-between mt-5">
-          <button
-            class="bg-white border text-black hover:bg-slate-700 hover:text-white btn__dialog"
-            @click="close"
-          >
-            Close
-          </button>
-          <button
-            type="submit"
-            :class="
-              !eventData.title
-                ? 'bg-gray-400 text-slate-800 btn__dialog'
-                : 'bg-indigo-600 hover:bg-indigo-400 text-white btn__dialog'
-            "
-            :disabled="!eventData.title"
-          >
-            Add
-          </button>
-        </div>
-      </form>
+    <div>
+      <Input
+        v-model="eventData.title"
+        label="Title"
+        placeholder="Title"
+        class="my-2"
+        :bordered="true"
+      />
+      <Textarea
+        v-model="eventData.description"
+        label="Description"
+        placeholder="Description"
+        class="my-2"
+        :bordered="true"
+      />
+      <ColorPicker
+        v-model="eventData.color"
+        label="Event color"
+        placeholder="Select a color"
+        :bordered="true"
+      />
+      <div class="flex justify-between mt-5">
+        <button
+          class="bg-white border text-black hover:bg-slate-700 hover:text-white btn__dialog"
+          @click="close"
+        >
+          Close
+        </button>
+        <button
+          :class="
+            !eventData.title
+              ? 'bg-gray-400 text-slate-800 btn__dialog'
+              : 'bg-indigo-600 hover:bg-indigo-400 text-white btn__dialog'
+          "
+          :disabled="!eventData.title"
+          @click="addEvent"
+        >
+          Add
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +86,7 @@ import Input from "../form/Input.vue";
 import Textarea from "../Form/Textarea.vue";
 
 import { EventModel } from "../../interfaces/calendar";
+import ColorPicker from "../Form/ColorPicker.vue";
 
 interface DateModel {
   day: number;
@@ -96,16 +104,21 @@ const emit = defineEmits(["add", "close", "delete-event"]);
 const eventData: Ref<EventModel> = ref({
   title: "",
   description: "",
+  color: "bg-white",
 });
 
 const formatDateNumber = (num: number) => {
   return num < 10 ? `0${num}` : num;
+};
+const showEventInfo = (event: EventModel) => {
+  eventData.value = { ...event };
 };
 const addEvent = () => {
   emit("add", { id: new Date().getTime() as number, ...eventData.value });
   eventData.value = {
     title: "",
     description: "",
+    color: "",
   };
 };
 const deleteEvent = (item: EventModel) =>

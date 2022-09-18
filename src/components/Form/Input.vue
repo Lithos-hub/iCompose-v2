@@ -24,7 +24,6 @@ const props = withDefaults(
     label?: string;
     placeholder?: string;
     modelValue: string;
-    data?: any[];
     bordered?: boolean;
   }>(),
   {}

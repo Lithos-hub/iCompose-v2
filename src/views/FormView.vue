@@ -43,6 +43,13 @@
         />
       </div>
       <div>
+        <ColorPicker
+          v-model="inputs.color"
+          label="Color picker"
+          placeholder="Select a color"
+        />
+      </div>
+      <div>
         <OTP v-model="inputs.otp" label="OTP" />
         <small class="ml-1 text-gray-600">Output: {{ inputs.otp }} </small>
       </div>
@@ -59,6 +66,7 @@ import Select from "../components/form/Select.vue";
 import MultiSelect from "../components/Form/MultiSelect.vue";
 import OTP from "../components/Form/OTP.vue";
 import Textarea from "../components/Form/Textarea.vue";
+import ColorPicker from "../components/Form/ColorPicker.vue";
 
 const inputs = ref({
   normal: "",
@@ -67,6 +75,7 @@ const inputs = ref({
   multiselect: [] as string[],
   otp: "",
   textarea: "",
+  color: "",
 });
 
 const searchItems: Ref<string[]> = ref([

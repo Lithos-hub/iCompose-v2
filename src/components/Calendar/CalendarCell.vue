@@ -4,7 +4,11 @@
       class="grid grid-cols-4 gap-2 m-1 text-center"
       v-show="eventItems?.length"
     >
-      <CalendarEvent v-for="(_, i) of eventItems" :key="i" />
+      <CalendarEvent
+        v-for="(item, i) of eventItems"
+        :key="i"
+        :color="item.color"
+      />
     </div>
     <div class="absolute bottom-1 left-1 font-medium">{{ numberDay }}</div>
   </div>
