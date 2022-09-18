@@ -57,19 +57,9 @@ const menuItems = ref([
     icon: "fa-sharp fa-solid fa-table",
   },
   {
-    text: "Card",
-    to: "/card",
-    icon: "fa-regular fa-square",
-  },
-  {
     text: "Form",
     to: "/form",
     icon: "fa-regular fa-file-lines",
-  },
-  {
-    text: "Smart form",
-    to: "/smartForm",
-    icon: "fa-solid fa-font",
   },
   {
     text: "Calendar",
@@ -80,6 +70,16 @@ const menuItems = ref([
     text: "Snackbar",
     to: "/snackbar",
     icon: "fa-solid fa-circle-exclamation",
+  },
+  {
+    text: "Smart form (Soon)",
+    to: "/smartForm",
+    icon: "fa-solid fa-font",
+  },
+  {
+    text: "Card (Soon)",
+    to: "/card",
+    icon: "fa-regular fa-square",
   },
 ]);
 
