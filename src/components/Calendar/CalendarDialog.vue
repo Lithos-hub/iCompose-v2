@@ -12,11 +12,23 @@
     </h4>
     <h4 class="text-md mt-10 font-medium">Current events</h4>
     <div v-if="events && events.length" class="overflow-y-scroll max-h-[200px]">
+      <Transition name="fade">
+        <div
+          v-if="showDescription"
+          class="absolute p-2 px-3 right-[360px] bg-white h-auto w-[200px] rounded-[25px] shadow-lg"
+        >
+          <p class="mt-2 font-medium">Event description</p>
+          <hr />
+          <small class="mx-1">{{ tooltipDescription }}</small>
+        </div>
+      </Transition>
       <div
         v-for="(item, i) of events"
         :key="i"
         :class="`rounded-full w-auto p-2 px-3 my-1 flex justify-between cursor-pointer border shadow-md ${item.color}`"
         @click="showEventInfo(item)"
+        @mouseover="toggleTooltip(item, { show: true })"
+        @mouseout="toggleTooltip(item, { show: false })"
       >
         <div :class="item.color === 'bg-white' ? 'text-black' : 'text-white'">
           {{ item.title }}
@@ -85,18 +97,12 @@ import { Ref, ref } from "vue";
 import Input from "../form/Input.vue";
 import Textarea from "../Form/Textarea.vue";
 
-import { EventModel } from "../../interfaces/calendar";
+import { EventModel, DateDataModel } from "../../interfaces/calendar";
 import ColorPicker from "../Form/ColorPicker.vue";
-
-interface DateModel {
-  day: number;
-  month: number;
-  year: number;
-}
 
 const props = defineProps<{
   events: EventModel[] | [];
-  date: DateModel;
+  date: DateDataModel;
 }>();
 
 const emit = defineEmits(["add", "close", "delete-event"]);
@@ -107,11 +113,21 @@ const eventData: Ref<EventModel> = ref({
   color: "bg-white",
 });
 
+const showDescription = ref(false);
+const tooltipDescription = ref("");
+
 const formatDateNumber = (num: number) => {
   return num < 10 ? `0${num}` : num;
 };
 const showEventInfo = (event: EventModel) => {
   eventData.value = { ...event };
+};
+const toggleTooltip = (
+  { description }: { description: string },
+  { show }: { show: boolean }
+) => {
+  showDescription.value = show;
+  tooltipDescription.value = description;
 };
 const addEvent = () => {
   emit("add", { id: new Date().getTime() as number, ...eventData.value });

@@ -22,7 +22,10 @@
       <i
         class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-[12px]"
       ></i>
-      <div class="absolute top-[50px] w-full rounded-lg" v-if="isSearching">
+      <div
+        class="z-20 absolute top-[50px] w-full rounded-lg"
+        v-if="isSearching"
+      >
         <ul
           class="max-h-[300px] overflow-auto rounded-t-[25px] rounded-b-[25px]"
         >

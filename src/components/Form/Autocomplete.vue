@@ -13,7 +13,10 @@
       <i
         class="fa-solid fa-magnifying-glass absolute right-6 top-1/2 -translate-y-1/2"
       ></i>
-      <div class="absolute top-[50px] w-full rounded-lg" v-if="isSearching">
+      <div
+        class="z-20 absolute top-[50px] w-full rounded-lg"
+        v-if="isSearching"
+      >
         <div v-if="hasResults">
           <ul
             class="max-h-[300px] overflow-auto rounded-t-[25px] rounded-b-[25px]"

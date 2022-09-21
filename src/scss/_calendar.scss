@@ -1,5 +1,5 @@
 .cell {
-  @apply h-[150px] w-[110px] rounded-md;
+  @apply min-h-[100px] h-full w-[120px] rounded-md;
 }
 
 .cell__default {

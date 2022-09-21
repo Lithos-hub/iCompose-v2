@@ -85,6 +85,7 @@ const colors = [
 const selectColor = (color: string) => {
   selectedColor.value = color;
   emit("update:modelValue", color);
+  showColorPicker.value = false;
 };
 </script>
 
