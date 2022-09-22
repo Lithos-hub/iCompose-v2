@@ -4,7 +4,7 @@
     <hr />
     <h4 class="text-md mt-2 font-medium">
       Date:
-      <span class="p-1 px-3 bg-indigo-800 text-white rounded-[25px]">{{
+      <span class="p-1 px-3 bg-indigo-800 text-white rounded-[15px]">{{
         `${formatDateNumber(date.day)}-${formatDateNumber(date.month)}-${
           date.year
         }`
@@ -15,7 +15,7 @@
       <Transition name="fade">
         <div
           v-if="showDescription"
-          class="absolute p-2 px-3 right-[360px] bg-white h-auto w-[200px] rounded-[25px] shadow-lg"
+          class="absolute p-2 px-3 right-[360px] bg-white h-auto w-[200px] rounded-[15px] shadow-lg"
         >
           <p class="mt-2 font-medium">Event description</p>
           <hr />

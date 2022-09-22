@@ -1,8 +1,8 @@
 <template>
-  <div class="grid grid-flow-col h-auto">
+  <div class="grid grid-flow-col h-screen justify-around">
     <div class="flex flex-col justify-center">
       <div
-        class="bg-white rounded-[25px] p-2 text-center max-w-[150px] ml-auto"
+        class="bg-white rounded-[15px] p-2 text-center max-w-[150px] ml-auto shadow-md"
       >
         <Select
           v-model="currentDateData.month"
@@ -18,35 +18,38 @@
         />
       </div>
     </div>
-    <div
-      class="relative mt-4 max-w-[900px] max-h-[700px] bg-white p-2 rounded-lg mx-auto"
-    >
-      <CalendarDays />
-      <div class="grid grid-cols-7 gap-1 relative mt-2">
-        <CalendarCell
-          class="bg-indigo-200 border mx-auto"
-          v-for="n of restDaysPrevMonth"
-          :number-day="n"
-        />
-        <CalendarCell
-          :class="`${
-            i + 1 === currentDay &&
-            currentDateData.month === date.getMonth() + 1
-              ? 'cell__default bg-green-100 mx-auto'
-              : 'cell__default bg-white mx-auto'
-          }`"
-          v-for="(items, i) of events.slice(0, totalmonthDays)"
-          :key="i"
-          :number-day="i + 1"
-          :eventItems="items"
-          @delete="deleteEvent"
-          @click="showAddEventDialog(i + 1)"
-        />
-        <CalendarCell
-          class="bg-indigo-200 border mx-auto"
-          v-for="n of restDaysCurrentMonth"
-          :number-day="n + 1"
-        />
+    <div class="flex flex-col justify-center">
+      <div
+        class="bg-white rounded-[15px] p-2 text-center h-auto w-full mx-auto shadow-md"
+      >
+        <CalendarDays />
+        <div class="calendar grid grid-cols-7 gap-1 relative mt-2">
+          <CalendarCell
+            class="bg-indigo-200 border mx-auto"
+            v-for="n of restDaysPrevMonth"
+            :number-day="n"
+          />
+          <CalendarCell
+            :class="`${
+              i + 1 === currentDay &&
+              currentDateData.month === date.getMonth() + 1 &&
+              currentDateData.year === date.getFullYear()
+                ? 'cell__default bg-green-100 mx-auto'
+                : 'cell__default bg-white mx-auto'
+            }`"
+            v-for="(items, i) of events.slice(0, totalmonthDays)"
+            :key="i"
+            :number-day="i + 1"
+            :eventItems="items"
+            @delete="deleteEvent"
+            @click="showAddEventDialog(i + 1)"
+          />
+          <CalendarCell
+            class="bg-indigo-200 border mx-auto"
+            v-for="n of restDaysCurrentMonth"
+            :number-day="n + 1"
+          />
+        </div>
       </div>
     </div>
     <div>
@@ -56,7 +59,6 @@
           v-if="openDialog"
           :date="currentDateData"
           :events="[...events.at(currentDateData.day as number - 1)]"
-          :key="reUpdateComponent"
           @add="addEvent"
           @delete-event="deleteEvent"
           @close="openDialog = false"
@@ -100,7 +102,6 @@ const restDaysCurrentMonth: Ref<number[]> = ref([1]);
 
 const totalmonthDays: Ref<number> = ref(0);
 const events: Ref<any> = ref([]);
-const reUpdateComponent = ref(0); // TODO: Check
 
 const currentDateData: Ref<DateDataModel> = ref({
   day: date.getDate(),
@@ -115,9 +116,14 @@ const setMonth = (val: number) => {
   currentDateData.value.month = val;
   getRestDaysPrevMonth();
   getRestDaysCurrentMonth();
-  currentDateData.value.day = 0;
+  currentDateData.value.day = 1;
 };
-const setYear = (val: number) => (currentDateData.value.year = val);
+const setYear = (val: number) => {
+  currentDateData.value.year = val;
+  getRestDaysPrevMonth();
+  getRestDaysCurrentMonth();
+  currentDateData.value.day = 1;
+};
 
 function isLeapYear(year: number): boolean {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -157,7 +163,7 @@ const getRestDaysCurrentMonth = () => {
   const lastDayDate: number = getDateMonthLastDay(true);
   restDaysCurrentMonth.value = Array.from(
     Array(daysInWeek - lastDayDate).keys()
-  );
+  ).slice(0, 6);
 };
 const showAddEventDialog = (n: number) => {
   currentDateData.value.day = n;
@@ -175,7 +181,7 @@ const addEvent = (item: EventModel) => {
     events.value[eventIndex] = [item];
   }
 
-  reUpdateComponent.value++;
+  // reUpdateComponent.value++;
 };
 const deleteEvent = (item: EventModel, day: number) => {
   const listToUpdate = [...events.value[day - 1]];

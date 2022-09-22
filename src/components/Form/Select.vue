@@ -4,7 +4,7 @@
     <div class="relative">
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-[25px] hover:shadow-lg focus:outline-none w-full"
+        class="p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full"
         :placeholder="placeholder"
         @click="isSearching = true"
       />

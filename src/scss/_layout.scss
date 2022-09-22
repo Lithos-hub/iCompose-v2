@@ -1,7 +1,11 @@
 html,
 body,
 #app {
-  background: linear-gradient(120deg, white, rgb(232, 220, 220));
+  background: linear-gradient(
+    120deg,
+    white 50%,
+    rgba(207, 199, 211, 0.479) 50%
+  );
   margin: 0;
   padding: 0;
   width: 100%;

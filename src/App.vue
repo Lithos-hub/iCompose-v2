@@ -1,9 +1,6 @@
 <template>
   <div
-    class="z-1 h-[2300px] w-[2200px] fixed -left-[1100px] -top-[1500px] rounded-[3000px] bg-indigo-800 opacity-60"
-  ></div>
-  <div
-    class="z-1 h-[2400px] w-[2500px] fixed -right-[1500px] -bottom-[1500px] rounded-[2000px] bg-slate-800 opacity-20"
+    class="z-1 h-[2300px] w-[2200px] fixed -left-[1300px] -top-[1500px] rounded-br-[1000px] bg-indigo-800 opacity-60"
   ></div>
   <router-view></router-view>
 </template>
