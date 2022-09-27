@@ -8,8 +8,8 @@ const useDialog = () => {
   const showOptions = () => {
     isShowingOptions.value = true;
     setTimeout(() => {
-      dialogOverlay = document.querySelector(".dialog__overlay");
-      dialog = document.querySelector(".dialog__spreadsheet");
+      dialogOverlay = document.querySelector(".dialog__overlay") as HTMLElement;
+      dialog = document.querySelector(".dialog__spreadsheet") as HTMLElement;
       if (dialog && dialogOverlay) {
         dialog.style.transition = "all .5s ease-out";
         dialogOverlay.style.transition = "all .5s ease-out";
@@ -21,14 +21,14 @@ const useDialog = () => {
   };
 
   const hide = () => {
-    dialogOverlay = document.querySelector(".dialog__overlay");
-    dialog = document.querySelector(".dialog__spreadsheet");
+    dialogOverlay = document.querySelector(".dialog__overlay") as HTMLElement;
+    dialog = document.querySelector(".dialog__spreadsheet") as HTMLElement;
     if (dialog && dialogOverlay) {
       dialog.style.transition = "all .5s ease-out";
       dialogOverlay.style.transition = "all .5s ease-out";
       dialog.style.top = "30%";
-      dialog.style.opacity = 0;
-      dialogOverlay.style.opacity = 0;
+      dialog.style.opacity = "0";
+      dialogOverlay.style.opacity = "0";
       setTimeout(() => {
         isShowingOptions.value = false;
       }, 500);

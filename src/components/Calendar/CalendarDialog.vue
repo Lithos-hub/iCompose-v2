@@ -44,7 +44,7 @@
         :bordered="true"
       />
       <Textarea
-        v-model="eventData.description"
+        v-model="(eventData.description as string)"
         label="Description"
         placeholder="Description"
         class="my-2"
