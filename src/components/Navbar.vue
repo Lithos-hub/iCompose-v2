@@ -18,6 +18,13 @@
       >
         {{ text }}
       </router-link>
+      <a
+        href="https://github.com/Lithos-hub/iCompose-v2"
+        target="_blank"
+        class="mx-2 my-auto"
+      >
+        <i class="fa-brands fa-github text-[20px] hover:text-indigo-800"></i>
+      </a>
     </div>
   </nav>
 </template>
