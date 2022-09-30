@@ -21,7 +21,7 @@
           :key="'B' + i"
         >
           <td class="p-2 border" v-for="({ value }, i) in headers" :key="i">
-            {{ item[value] }}
+            {{ item[value as keyof typeof item] }}
           </td>
         </tr>
       </tbody>

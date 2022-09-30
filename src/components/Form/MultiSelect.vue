@@ -15,7 +15,7 @@
       </ul>
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer"
+        :class="bordered ? 'multiselect border' : 'multiselect'"
         :placeholder="placeholder"
         @click="isSearching = true"
       />
@@ -62,6 +62,7 @@ const props = withDefaults(
     label?: string;
     placeholder?: string;
     modelValue: string[];
+    bordered?: boolean;
     data: any[];
   }>(),
   {}
@@ -107,5 +108,9 @@ select {
   appearance: none;
   text-indent: 1px;
   text-overflow: "";
+}
+
+.multiselect {
+  @apply p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer;
 }
 </style>

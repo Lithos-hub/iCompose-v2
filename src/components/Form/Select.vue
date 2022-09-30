@@ -4,7 +4,7 @@
     <div class="relative">
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full"
+        :class="bordered ? 'select border' : 'select'"
         :placeholder="placeholder"
         @click="isSearching = true"
       />
@@ -43,6 +43,7 @@ const props = withDefaults(
     label?: string;
     placeholder?: string;
     modelValue: string | number;
+    bordered?: boolean;
     data: any[];
   }>(),
   {}
@@ -78,5 +79,9 @@ select {
   appearance: none;
   text-indent: 1px;
   text-overflow: "";
+}
+
+.select {
+  @apply p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full;
 }
 </style>

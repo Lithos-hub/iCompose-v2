@@ -1,11 +1,14 @@
 <template>
-  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-[25px] shadow-md"
+  >
     <div class="grid grid-cols-3 gap-10">
       <div>
         <Input
           v-model="inputs.normal"
           label="Text field"
           placeholder="Write here"
+          bordered
         />
       </div>
       <div>
@@ -13,6 +16,7 @@
           v-model="inputs.textarea"
           label="Text area"
           placeholder="Write here"
+          bordered
         />
       </div>
       <div>
@@ -20,6 +24,7 @@
           v-model="inputs.search"
           label="Autocomplete"
           placeholder="Write here"
+          bordered
           :data="searchItems"
           @on-search="setSearchItem"
         />
@@ -29,6 +34,7 @@
           v-model="inputs.select"
           label="Select"
           placeholder="Select an item"
+          bordered
           :data="searchItems"
           @on-select="setSelectItem"
         />
@@ -38,6 +44,7 @@
           v-model="inputs.multiselect"
           label="Multi Select"
           placeholder="Select several items"
+          bordered
           :data="searchItems"
           @on-select="setMultiselectItems"
         />

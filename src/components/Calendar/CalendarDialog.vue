@@ -5,9 +5,9 @@
     <h4 class="text-md mt-2 font-medium">
       Date:
       <span class="p-1 px-3 bg-indigo-800 text-white rounded-[15px]">{{
-        `${formatDateNumber(date.day)}-${formatDateNumber(date.month)}-${
-          date.year
-        }`
+        `${formatDateNumber(date.day as number)}-${formatDateNumber(
+          date.month
+        )}-${date.year}`
       }}</span>
     </h4>
     <h4 class="text-md mt-10 font-medium">Current events</h4>

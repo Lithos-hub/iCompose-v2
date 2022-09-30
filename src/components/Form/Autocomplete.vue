@@ -7,7 +7,7 @@
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
-        class="p-3 pl-5 rounded-[15px] w-full hover:shadow-lg focus:outline-none transition-all duration-200 ease-in-out"
+        :class="bordered ? 'autocomplete border' : 'autocomplete'"
         :placeholder="placeholder"
       />
       <i
@@ -45,15 +45,12 @@
 <script lang="ts" setup>
 import { Ref, ref, watch, onMounted } from "vue";
 
-/* It doesn't work
-  import { FormProps } from "../interfaces/form";
-*/
-
 const props = withDefaults(
   defineProps<{
     label?: string;
     placeholder?: string;
     modelValue: string;
+    bordered?: boolean;
     data: any[];
   }>(),
   {}
@@ -99,4 +96,8 @@ onMounted(() => {
 });
 </script>
 
-<style lang="" scoped></style>
+<style lang="scss" scoped>
+.autocomplete {
+  @apply p-3 pl-5 rounded-[15px] w-full hover:shadow-lg focus:outline-none transition-all duration-200 ease-in-out;
+}
+</style>

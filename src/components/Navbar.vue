@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-const version = "0.8.0";
+const version = import.meta.env.VITE_APP_VERSION;
 
 const menuItems = ref([
   {
