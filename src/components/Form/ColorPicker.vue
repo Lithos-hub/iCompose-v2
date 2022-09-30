@@ -24,7 +24,7 @@
     </div>
 
     <div
-      class="mt-1 bg-white rounded-[25px] h-auto py-2 w-full border shadow-lg absolute top-[100px]"
+      class="mt-1 bg-white rounded-[15px] h-auto py-2 w-full border shadow-lg absolute top-[100px]"
       v-if="showColorPicker"
     >
       <Transition name="fade">
@@ -85,12 +85,13 @@ const colors = [
 const selectColor = (color: string) => {
   selectedColor.value = color;
   emit("update:modelValue", color);
+  showColorPicker.value = false;
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../scss/app";
 .input {
-  @apply h-[48px] w-auto px-[30px] py-[10px] rounded-[25px] hover:shadow-lg focus:outline-none duration-200 ease-in-out;
+  @apply h-[48px] w-auto px-[30px] py-[10px] rounded-[15px] hover:shadow-lg focus:outline-none duration-200 ease-in-out;
 }
 </style>

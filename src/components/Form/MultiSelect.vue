@@ -15,14 +15,17 @@
       </ul>
       <input
         :value="modelValue"
-        class="p-3 pl-5 rounded-[25px] hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer"
+        class="p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none w-full text-transparent cursor-pointer"
         :placeholder="placeholder"
         @click="isSearching = true"
       />
       <i
         class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-[12px]"
       ></i>
-      <div class="absolute top-[50px] w-full rounded-lg" v-if="isSearching">
+      <div
+        class="z-20 absolute top-[50px] w-full rounded-lg"
+        v-if="isSearching"
+      >
         <ul
           class="max-h-[300px] overflow-auto rounded-t-[25px] rounded-b-[25px]"
         >

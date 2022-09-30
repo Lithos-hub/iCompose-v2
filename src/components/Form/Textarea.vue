@@ -32,6 +32,6 @@ const props = withDefaults(
 
 <style lang="scss" scoped>
 .input {
-  @apply p-3 pl-5 rounded-[25px] hover:shadow-lg focus:outline-none duration-200 ease-in-out;
+  @apply p-3 pl-5 rounded-[15px] hover:shadow-lg focus:outline-none duration-200 ease-in-out;
 }
 </style>
