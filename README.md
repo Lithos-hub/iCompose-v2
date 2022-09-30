@@ -16,20 +16,20 @@ Tables
 
  Form:
 
-* - [x] Text field
+- [x] Text field
 
-* - [x] Text area
+- [x] Text area
 
-* - [x] Autocomplete
+- [x] Autocomplete
 
-* - [x] Select
+- [x] Select
 
-* - [x] Multi select
+- [x] Multi select
 
-* - [x] Color picker
+- [x] Color picker
 
-* - [x] OTP
-* - [ ] Smart form
+- [x] OTP
+- [ ] Smart form
 
 Others:
 
