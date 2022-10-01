@@ -48,7 +48,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .snackbar {
-  @apply fixed bottom-0 left-0 w-full h-[75px] z-40 shadow-md flex justify-between;
+  @apply fixed left-0 -bottom-[200px] w-full h-[75px] z-40 shadow-md flex justify-between;
 }
 .success {
   background-size: cover;
@@ -69,38 +69,12 @@ export default defineComponent({
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
-.snackbar__show {
-  animation: snackbarShow 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.snackbar__hide {
-  animation: snackbarHide 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-}
-
 @keyframes backgroundMotion {
   from {
     background-position: 0vw;
   }
   to {
     background-position-x: 100vw;
-  }
-}
-
-@keyframes snackbarShow {
-  from {
-    bottom: -200px;
-  }
-  to {
-    bottom: 0;
-  }
-}
-
-@keyframes snackbarHide {
-  from {
-    bottom: 0;
-  }
-  to {
-    bottom: -200px;
   }
 }
 </style>

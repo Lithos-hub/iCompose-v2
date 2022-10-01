@@ -1,13 +1,15 @@
 <template>
   <Snackbar
-    v-if="show"
+    ref="snackbar"
     title="Notification title"
     message="Notification message"
     :icon="icon"
     :type="snackbarType"
     @close-snackbar="close"
   />
-  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-3 rounded-[15px] shadow-md"
+  >
     <div class="flex justify-around w-[40vw]">
       <div>
         <button
@@ -50,7 +52,6 @@ export default defineComponent({
     Snackbar,
   },
   setup() {
-    const show = ref(false);
     const snackbarType: Ref<string> = ref("");
     const icon: Ref<string> = ref("");
 
@@ -68,32 +69,28 @@ export default defineComponent({
       }
 
       snackbarType.value = type;
-      show.value = !show.value;
 
-      if (show.value) {
-        setTimeout(() => {
-          const snackbar = document.querySelector(".snackbar");
-          snackbar?.classList.add("snackbar__hide");
-        }, 4000);
+      const snackbar = document.querySelector(".snackbar") as HTMLElement;
 
-        setTimeout(() => {
-          show.value = false;
-        }, 5000);
-      }
+      setTimeout(() => {
+        snackbar.style.transition =
+          "all 250ms cubic-bezier(0.075, 0.82, 0.165, 1)";
+        snackbar.style.bottom = "0px";
+      }, 250);
+
+      setTimeout(() => {
+        snackbar.style.transition = "all 1s ease";
+        snackbar.style.bottom = "-200px";
+      }, 2250);
     };
 
     const close = () => {
-      const snackbar = document.querySelector(".snackbar");
-      snackbar?.classList.add("snackbar__hide");
-      setTimeout(() => {
-        show.value = false;
-        snackbar?.classList.remove("snackbar__hide");
-      }, 999);
+      const snackbar = document.querySelector(".snackbar") as HTMLElement;
+      snackbar.style.transition = "all 1s ease";
+      snackbar.style.bottom = "-200px";
     };
 
-    return { show, snackbarType, open, close, icon };
+    return { snackbarType, open, close, icon };
   },
 });
 </script>
-
-<style lang="" scoped></style>
