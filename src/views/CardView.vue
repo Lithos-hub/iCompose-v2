@@ -6,9 +6,7 @@
       Black & White
     </h1>
     <Card
-      :width="300"
-      :maxWidth="300"
-      class="bg-white p-5 rounded-[15px] shadow-md text-center mx-auto"
+      class="bg-white p-5 rounded-[15px] shadow-md text-center mx-auto max-w-[300px]"
     >
       <template v-slot:card-header>
         <i class="fa-brands fa-linkedin text-[100px]"></i>
@@ -40,10 +38,7 @@
       Dense
     </h1>
     <Card
-      :width="300"
-      :maxWidth="300"
-      :height="600"
-      class="bg-white rounded-[15px] shadow-md text-center mx-auto"
+      class="bg-white rounded-[15px] shadow-md text-center mx-auto max-w-[300px]"
     >
       <template v-slot:card-header>
         <img
@@ -87,9 +82,7 @@
       Masked
     </h1>
     <Card
-      :width="300"
-      :maxWidth="300"
-      class="bg-neutral-800 text-white rounded-[15px] shadow-md text-left mx-auto pb-5"
+      class="bg-neutral-800 text-white rounded-[15px] shadow-md text-left mx-auto pb-5 max-w-[300px]"
     >
       <template v-slot:card-header>
         <div class="relative">
@@ -124,9 +117,7 @@
       Minimal
     </h1>
     <Card
-      :width="350"
-      :maxWidth="350"
-      class="bg-white text-[#202020] rounded-md shadow-md text-center mx-auto pb-5"
+      class="bg-white text-[#202020] rounded-md shadow-md text-center mx-auto pb-5 max-w-[350px]"
     >
       <template v-slot:card-header>
         <div
@@ -176,9 +167,7 @@
       Oceanic
     </h1>
     <Card
-      :width="600"
-      :maxWidth="600"
-      class="bg-gradient-to-r from-cyan-500 to-blue-800 text-white rounded-[15px] shadow-md text-center mx-auto col-span-2"
+      class="bg-gradient-to-r from-cyan-500 to-blue-800 text-white rounded-[15px] shadow-md text-center mx-auto col-span-2 max-w-[600px]"
     >
       <template v-slot:card-header>
         <div class="flex justify-between m-5">
@@ -225,9 +214,7 @@
       Warm
     </h1>
     <Card
-      :width="600"
-      :maxWidth="600"
-      class="bg-white text-[#404040] rounded-[15px] shadow-lg mx-auto col-span-2"
+      class="bg-white text-[#404040] rounded-[15px] shadow-lg mx-auto col-span-2 max-w-[600px]"
     >
       <template v-slot:card-header>
         <div

@@ -1,12 +1,5 @@
 <template>
-  <div
-    :class="`relative 
-    ${width ? `w-[${width}px]` : 'w-auto'}
-    ${height ? `h-[${height}px]` : 'h-auto'}
-    ${maxWidth ? `max-w-[${maxWidth}px]` : ''}
-    ${maxHeight ? `max-h-[${maxHeight}px]` : ''}
-    `"
-  >
+  <div class="relative">
     <header>
       <slot name="card-header"></slot>
     </header>
