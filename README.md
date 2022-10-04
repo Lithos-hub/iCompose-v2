@@ -34,7 +34,7 @@ Tables
 Others:
 
 - [x] Calendar
-- [ ] Card
+- [x] Card
 
 Warnings:
 
