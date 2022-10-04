@@ -1,7 +1,7 @@
 <template>
   <nav
     ref="sideMenu"
-    class="fixed h-screen top-[58px] left-0 bg-white right-auto shadow-lg py-5 px-3 hover:px-8 overflow-y-auto duration-200"
+    class="fixed z-19 h-screen top-0 left-0 pt-[58px] bg-white right-auto shadow-lg py-5 px-3 hover:px-8 overflow-y-auto duration-200"
   >
     <div v-show="show" class="fadeIn">
       <h1 class="">Components</h1>
@@ -72,14 +72,14 @@ const menuItems = ref([
     icon: "fa-solid fa-circle-exclamation",
   },
   {
+    text: "Card",
+    to: "/card",
+    icon: "fa-regular fa-square",
+  },
+  {
     text: "Smart form (Soon)",
     to: "/smartForm",
     icon: "fa-solid fa-font",
-  },
-  {
-    text: "Card (Soon)",
-    to: "/card",
-    icon: "fa-regular fa-square",
   },
 ]);
 

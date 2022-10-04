@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-[25px] shadow-md"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-[15px] shadow-md"
   >
     <div class="grid grid-cols-3 gap-10">
       <div>
