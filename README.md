@@ -29,12 +29,16 @@ Tables
 - [x] Color picker
 
 - [x] OTP
+
 - [ ] Smart form
 
 Others:
 
 - [x] Calendar
+
 - [x] Card
+
+- [x] Button
 
 Warnings:
 
