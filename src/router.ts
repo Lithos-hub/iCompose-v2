@@ -38,11 +38,7 @@ const routes: RouteRecordRaw[] = [
         name: "Form",
         component: () => import("./views/FormView.vue"),
       },
-      {
-        path: "/smartForm",
-        name: "SmartForm",
-        component: () => import("./views/SmartFormView.vue"),
-      },
+
       {
         path: "/calendar",
         name: "Calendar",
@@ -52,6 +48,16 @@ const routes: RouteRecordRaw[] = [
         path: "/snackbar",
         name: "Snackbar",
         component: () => import("./views/SnackbarView.vue"),
+      },
+      {
+        path: "/button",
+        name: "Button",
+        component: () => import("./views/ButtonView.vue"),
+      },
+      {
+        path: "/smartForm",
+        name: "SmartForm",
+        component: () => import("./views/SmartFormView.vue"),
       },
     ],
   },
