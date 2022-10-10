@@ -1,5 +1,5 @@
 <template>
-  <h1>Smart form</h1>
+  <SimpleTable />
 </template>
 
 <script lang="ts" setup></script>

@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/simpleTable",
         name: "SimpleTable",
-        component: () => import("./components/SimpleTable.vue"),
+        component: () => import("./views/SimpleTableView.vue"),
       },
       {
         path: "/card",
