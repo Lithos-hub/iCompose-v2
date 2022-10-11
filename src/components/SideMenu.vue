@@ -82,6 +82,11 @@ const menuItems = ref([
     icon: "fa-regular fa-hand-pointer"
   },
   {
+    text: "Dialog",
+    to: "/dialog",
+    icon: "fa-solid fa-comment-dots"
+  },
+  {
     text: "Smart form (Soon)",
     to: "/smartForm",
     icon: "fa-solid fa-font",

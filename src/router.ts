@@ -55,6 +55,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("./views/ButtonView.vue"),
       },
       {
+        path: "/dialog",
+        name: "Dialog",
+        component: () => import("./views/DialogView.vue"),
+      },
+      {
         path: "/smartForm",
         name: "SmartForm",
         component: () => import("./views/SmartFormView.vue"),

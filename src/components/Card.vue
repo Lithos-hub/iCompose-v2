@@ -3,7 +3,7 @@
     <header>
       <slot name="card-header"></slot>
     </header>
-    <main class="m-0">
+    <main>
       <slot />
     </main>
     <footer>

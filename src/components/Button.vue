@@ -4,7 +4,9 @@
     :disabled="variant === 'disabled'"
   >
     <i :class="icon" v-if="iconLeft" />
-    <span class="mx-2"> Click me! </span>
+    <span class="mx-2">
+     <slot></slot>
+    </span>
     <i :class="icon" v-if="iconRight" />
   </button>
 </template>
