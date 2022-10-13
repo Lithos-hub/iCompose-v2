@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full justify-center">
     <Dialog
       v-if="showDialog"
       @close="showDialog = !showDialog"
@@ -30,7 +30,7 @@
     </Dialog>
     <Button
       variant="default"
-      class="z-1 mx-auto mt-auto mb-[100px]"
+      class="z-1 mx-auto mb-[100px]"
       @click="showDialog = !showDialog"
     >
       <span>Show dialog</span>

@@ -33,12 +33,24 @@
           icon="fa-solid fa-magnifying-glass"
           icon-left
         >
-        <span>Click me!</span>
-      </Button>
+          <span>Click me!</span>
+        </Button>
       </div>
       <div class="text-center">
         <label class="block mb-2 font-semibold">Neumorphic</label>
         <Button variant="neumorphic" width="150">
+          <span>Click me!</span>
+        </Button>
+      </div>
+      <div class="text-center">
+        <label class="block mb-2 font-semibold">Future</label>
+        <Button variant="future" width="150">
+          <span>Click me!</span>
+        </Button>
+      </div>
+      <div class="text-center">
+        <label class="block mb-2 font-semibold">Modern</label>
+        <Button variant="modern" width="150">
           <span>Click me!</span>
         </Button>
       </div>
