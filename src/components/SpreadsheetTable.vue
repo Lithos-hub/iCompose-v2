@@ -61,10 +61,10 @@
 <script lang="ts">
 import { onMounted, ref, Ref, defineComponent } from "vue";
 
-import { SpreadsheetOptions } from "../../interfaces/spreadsheet";
+import { SpreadsheetOptions } from "../interfaces/spreadsheet";
 
-import useDialog from "../../composables/useDialog";
-import useTable from "../../composables/useTable";
+import useDialog from "../composables/useDialog";
+import useTable from "../composables/useTable";
 export default defineComponent({
   setup() {
     const selectedOptions: Ref<SpreadsheetOptions> = ref({
@@ -168,5 +168,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/app.scss";
+@import "../scss/app.scss";
 </style>
