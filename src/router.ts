@@ -60,6 +60,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("./views/DialogView.vue"),
       },
       {
+        path: "/spinner",
+        name: "Spinner",
+        component: () => import("./views/SpinnerView.vue"),
+      },
+      {
         path: "/smartForm",
         name: "SmartForm",
         component: () => import("./views/SmartFormView.vue"),

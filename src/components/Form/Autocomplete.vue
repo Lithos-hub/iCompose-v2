@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref, watch, onMounted } from "vue";
+import { Ref, ref, watch, onMounted, onUnmounted } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -93,6 +93,16 @@ onMounted(() => {
   document.addEventListener("click", () => {
     isSearching.value = false;
   });
+});
+
+onUnmounted(() => {
+  window.addEventListener(
+    "click",
+    (event) => {
+      event.stopImmediatePropagation();
+    },
+    true
+  );
 });
 </script>
 

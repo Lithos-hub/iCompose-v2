@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, onMounted } from "vue";
+import { ref, Ref, onMounted, onUnmounted } from "vue";
 /* It doesn't work
   import { FormProps } from "../interfaces/form";
 */
@@ -69,6 +69,15 @@ const onListenMouseClick = (): void => {
 
 onMounted(() => {
   onListenMouseClick();
+});
+onUnmounted(() => {
+  window.addEventListener(
+    "click",
+    (event) => {
+      event.stopImmediatePropagation();
+    },
+    true
+  );
 });
 </script>
 

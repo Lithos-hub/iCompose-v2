@@ -1,7 +1,12 @@
 <template>
   <button
-    :class="`${variant} w-[${width}px] max-w-[${maxWidth}px] h-[${height}px] max-h-[${maxHeight}px]`"
-    :disabled="variant === 'disabled'"
+    :class="`
+    ${disabled ? 'disabled' : variant} 
+    w-[${width}px] 
+    max-w-[${maxWidth}px] 
+    h-[${height}px] 
+    max-h-[${maxHeight}px]`"
+    :disabled="variant === 'disabled' || disabled"
   >
     <i :class="icon" v-if="iconLeft" />
     <span class="mx-2">
@@ -21,6 +26,7 @@ interface Props {
   icon?: string;
   iconLeft?: boolean;
   iconRight?: boolean;
+  disabled?: boolean;
 }
 
 const props = defineProps<Props>();

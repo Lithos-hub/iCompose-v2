@@ -26,7 +26,7 @@ Form:
 
 - [x] OTP
 
-- [ ] Smart form
+- [x] Smart form
 
 Others:
 
@@ -35,6 +35,8 @@ Others:
 - [x] Card
 
 - [x] Button
+
+- [x] Spinner
 
 - [x] Dialog
 

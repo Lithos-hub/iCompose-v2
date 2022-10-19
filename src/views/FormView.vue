@@ -59,6 +59,9 @@
       <div>
         <OTP v-model="otp" label="OTP" />
       </div>
+      <div>
+        <Checkbox v-model="checkbox" label="Checkbox" />
+      </div>
     </section>
   </div>
   <section
@@ -79,6 +82,7 @@ import MultiSelect from "../components/Form/MultiSelect.vue";
 import OTP from "../components/Form/OTP.vue";
 import Textarea from "../components/Form/Textarea.vue";
 import ColorPicker from "../components/Form/ColorPicker.vue";
+import Checkbox from "../components/Form/Checkbox.vue";
 
 const inputs = reactive({
   normal: "",
@@ -88,9 +92,10 @@ const inputs = reactive({
   otp: "",
   textarea: "",
   color: "",
+  checkbox: false,
 });
 
-const { normal, search, select, multiselect, otp, textarea, color } =
+const { normal, search, select, multiselect, otp, textarea, color, checkbox } =
   toRefs(inputs);
 
 const searchItems: Ref<string[]> = ref([
