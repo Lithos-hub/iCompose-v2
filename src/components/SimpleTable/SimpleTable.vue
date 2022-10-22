@@ -15,7 +15,7 @@
       <tbody>
         <tr
           class="hover:bg-slate-200"
-          v-for="(item, i) of props.data.slice(props.firstRow, props.lastRow)"
+          v-for="(item, i) of props.data?.slice(props.firstRow, props.lastRow)"
           :key="'B' + i"
         >
           <td

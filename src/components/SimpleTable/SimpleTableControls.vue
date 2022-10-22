@@ -57,7 +57,7 @@ const props = withDefaults(
 
 const firstRow: Ref<number> = ref(1);
 const lastRow: Ref<number> = ref(10);
-const totalRows: Ref<number> = computed(() => props.data.length);
+const totalRows: Ref<number> = computed(() => props.data?.length);
 const rowsPerPage: Ref<number> = ref(10);
 const isShowingByAmount: Ref<Boolean> = ref(false);
 
@@ -67,7 +67,7 @@ const showMoreRows = (): void => {
     firstRow.value = lastRow.value;
     lastRow.value += rowsPerPage.value;
   }
-  if (lastRow.value > props.data.length) lastRow.value = props.data.length;
+  if (lastRow.value > props.data?.length) lastRow.value = props.data?.length;
   emit("set-settings", { first: firstRow.value, last: lastRow.value });
 };
 const showLessRows = (): void => {
@@ -81,7 +81,7 @@ const showLessRows = (): void => {
 };
 
 const showRowsByAmount = (): void => {
-  if (rowsPerPage.value >= 1 && rowsPerPage.value <= props.data.length) {
+  if (rowsPerPage.value >= 1 && rowsPerPage.value <= props.data?.length) {
     isShowingByAmount.value = true;
     lastRow.value = rowsPerPage.value;
   }
@@ -92,7 +92,7 @@ const resetTable = (): void => {
   isShowingByAmount.value = false;
   firstRow.value = 1;
   lastRow.value = 10;
-  totalRows.value = props.data.length;
+  totalRows.value = props.data?.length;
   rowsPerPage.value = 10;
   emit("reset");
   emit("set-settings", { first: firstRow.value, last: lastRow.value });

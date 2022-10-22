@@ -10,13 +10,13 @@
         v-for="{ text, to, icon } of menuItems"
         :to="to"
         :class="`sideMenu-link ${
-          route.path === to ? 'bg-indigo-800 text-white' : 'text-slate-800'
+          route?.path === to ? 'bg-indigo-800 text-white' : 'text-slate-800'
         }`"
       >
         <div class="flex justify-between w-full">
           <i
             :class="`icon p-1 text-[18px] ${icon} ${
-              route.path === to ? 'bg-none text-white mr-3' : 'text-slate-800'
+              route?.path === to ? 'bg-none text-white mr-3' : 'text-slate-800'
             }`"
           ></i>
           <span>{{ text }}</span>
@@ -28,7 +28,7 @@
         <li v-for="{ icon, to } of menuItems" class="p-1 my-2 text-center">
           <i
             :class="`p-2 w-[40px] h-[40px] rounded-full text-[18px] ${icon} ${
-              route.path === to ? 'text-indigo-800' : 'text-slate-800'
+              route?.path === to ? 'text-indigo-800' : 'text-slate-800'
             }`"
           ></i>
         </li>
