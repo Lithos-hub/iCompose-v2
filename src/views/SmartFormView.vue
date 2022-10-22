@@ -100,7 +100,9 @@ const loadMonaco = (): void => {
 };
 
 const javascriptCodeToJSON = (string: string) => {
-  const keyValuePairs = string.split("{").at(1).slice(0, -1).trim();
+  const objectSplitted = string?.split("{").at(1) as string;
+  const keyValuePairs = objectSplitted.slice(0, -1).trim() ?? "";
+
   const trimmed = keyValuePairs
     .split(":")
     .map((element) =>
@@ -111,6 +113,7 @@ const javascriptCodeToJSON = (string: string) => {
         .replaceAll(" ", "")
     )
     .join(",");
+
   let processed = Object(trimmed)
     .split(":")
     .at(0)
@@ -140,10 +143,9 @@ const javascriptCodeToJSON = (string: string) => {
 };
 
 const parseJSON = async (value: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
       if (!monacoErrors.value.length) {
-        console.log("value to parse => ", value);
         const result = JSON.parse(JSON.stringify(javascriptCodeToJSON(value)));
         setTimeout(() => {
           resolve(result);
