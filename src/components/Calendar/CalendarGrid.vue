@@ -197,7 +197,3 @@ onMounted(() => {
   events.value = Array.from(Array(31).fill([]));
 });
 </script>
-
-<style lang="scss" scoped>
-@import "../../scss/app";
-</style>
