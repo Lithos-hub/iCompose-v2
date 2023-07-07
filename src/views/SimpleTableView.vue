@@ -65,7 +65,3 @@ const setSettings = ({ first, last }: { first: number; last: number }) => {
   lastRow.value = last;
 };
 </script>
-
-<style lang="scss">
-@import "../scss/app.scss";
-</style>

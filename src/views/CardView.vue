@@ -251,7 +251,7 @@
 import Card from "@/components/Card.vue";
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .masked {
   clip-path: polygon(0 0, 100% 0%, 100% 85%, 0% 100%);
 }

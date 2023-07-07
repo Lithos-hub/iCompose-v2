@@ -7,7 +7,3 @@
 <script lang="ts" setup>
 import SpreadsheetTable from "@/components/SpreadsheetTable.vue";
 </script>
-
-<style lang="scss">
-@import "../scss/app.scss";
-</style>

@@ -46,5 +46,3 @@ import Button from "@/components/Button.vue";
 
 const showDialog = ref(false);
 </script>
-
-<style scoped></style>
