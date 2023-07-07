@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
-import Snackbar from "../components/Snackbar.vue";
+import Snackbar from "@/components/Snackbar.vue";
 
 export default defineComponent({
   name: "SnackbarView",

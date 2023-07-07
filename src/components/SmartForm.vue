@@ -56,7 +56,7 @@
 
 <script lang="ts" setup>
 import { ref, Ref, watch } from "vue";
-import Input from "../components/Form/Input.vue";
+import Input from "@/components/Form/Input.vue";
 import Checkbox from "./Form/Checkbox.vue";
 
 type mapModel = {
@@ -72,7 +72,7 @@ interface Props {
   data: object;
 }
 
-const props = defineProps<Props>();
+const { data } = defineProps<Props>();
 const map = ref(buildFirstMap());
 
 watch(
@@ -106,18 +106,17 @@ const getMessage = (type: any) => {
 };
 
 function buildFirstMap() {
-  return Object.keys(props.data).map((key) => {
-    formModels.value[key as keyof typeof props.data] =
-      props.data[key as keyof typeof props.data];
+  return Object.keys(data).map((key) => {
+    formModels.value[key as keyof typeof data] = data[key as keyof typeof data];
     return {
       label: key,
-      value: props.data[key as keyof typeof props.data],
+      value: data[key as keyof typeof data],
       valid: validate(
-        getTypeof(props.data[key as keyof typeof props.data]) as string,
-        props.data[key as keyof typeof props.data],
-        getTypeof(props.data[key as keyof typeof props.data]) === "number"
+        getTypeof(data[key as keyof typeof data]) as string,
+        data[key as keyof typeof data],
+        getTypeof(data[key as keyof typeof data]) === "number"
       ),
-      type: getTypeof(props.data[key as keyof typeof props.data]),
+      type: getTypeof(data[key as keyof typeof data]),
     };
   }) as mapModel;
 }

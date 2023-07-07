@@ -9,7 +9,3 @@ const props = defineProps<{
   color: string;
 }>();
 </script>
-
-<style lang="scss" scoped>
-@import "../../scss/app";
-</style>

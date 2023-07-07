@@ -1,10 +1,10 @@
 <template>
   <nav
     ref="sideMenu"
-    class="fixed z-19 h-screen top-0 left-0 pt-[58px] bg-white right-auto shadow-lg py-5 px-3 hover:px-8 overflow-y-auto duration-200"
+    class="sticky top-0 left-0 h-screen bg-white hover:px-8 overflow-y-auto duration-200 p-5 border-r z-10"
   >
     <div v-show="show" class="fadeIn">
-      <h1 class="">Components</h1>
+      <strong class="text-indigo-800">Components list</strong>
       <hr class="mt-3" />
       <router-link
         v-for="{ text, to, icon } of menuItems"
@@ -38,14 +38,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, VNodeRef } from "vue";
 import { useRoute } from "vue-router";
+
+interface MenuItem {
+  text: string;
+  to: string;
+  icon: string;
+}
 
 const route = useRoute();
 
-const sideMenu = ref();
+const sideMenu = ref<VNodeRef | null>(null);
 
-const menuItems = ref([
+const menuItems: MenuItem[] = [
   {
     text: "Spreadsheet Table",
     to: "/spreadsheet",
@@ -96,7 +102,7 @@ const menuItems = ref([
     to: "/smartForm",
     icon: "fa-solid fa-font",
   },
-]);
+];
 
 const show = ref(false);
 

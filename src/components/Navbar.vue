@@ -1,12 +1,10 @@
 <template>
   <nav
-    class="z-30 py-3 px-10 flex justify-between border border-b-indigo-100 bg-white"
+    class="py-3 px-10 flex justify-between border border-b-indigo-100 bg-white relative"
   >
-    <div class="flex">
-      <h1 class="text-xl">iCompose</h1>
-      <div
-        class="py-1 px-2 ml-5 bg-indigo-800 text-cyan-200 font-semibold rounded-full"
-      >
+    <div class="flex items-center z-50">
+      <strong>iCompose</strong>
+      <div class="py-1 px-3 ml-5 bg-indigo-800 text-cyan-200 rounded-full">
         v{{ version }}
       </div>
     </div>
@@ -30,11 +28,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+const version = "1.5.0";
 
-const version = import.meta.env.VITE_APP_VERSION;
-
-const menuItems = ref([
+const menuItems = [
   {
     text: "Home",
     to: "/home",
@@ -43,5 +39,5 @@ const menuItems = ref([
     text: "About",
     to: "/about",
   },
-]);
+];
 </script>

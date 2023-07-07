@@ -2,7 +2,7 @@
   <TransitionGroup name="fade">
     <div
       id="overlay"
-      class="z-30 fixed top-0 left-0 h-screen w-screen bg-slate-700 bg-opacity-50"
+      class="z-30 fixed top-0 left-0 h-screen w-screen bg-slate-700 bg-opacity-50 backdrop-blur"
       @click="!persistent ? close() : animatePulse()"
     ></div>
     <div class="z-40 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -14,7 +14,7 @@
           class="relative top-0 left-0 w-full h-auto bg-indigo-800 rounded-t-[15px] p-2 text-white"
         >
           <div class="flex justify-between">
-            <h1 class="text-2xl p-2 font-medium">{{ props.title }}</h1>
+            <h1 class="text-2xl p-2 font-medium">{{ title }}</h1>
             <div class="my-auto mr-5">
               <div
                 class="p-2 rounded-full text-center h-[35px] w-[35px] hover:bg-indigo-500 duration-200"
@@ -48,7 +48,7 @@ interface Props {
   persistent?: boolean;
 }
 
-const props = defineProps<Props>();
+const { title } = defineProps<Props>();
 const emit = defineEmits(["close"]);
 
 const innerDialog = ref();
@@ -63,7 +63,3 @@ const animatePulse = () => {
   }, 100);
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../scss/app.scss";
-</style>
