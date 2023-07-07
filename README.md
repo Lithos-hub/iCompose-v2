@@ -1,6 +1,10 @@
 # iCompose
 
-iCompose is a component library made with Vue 3 + TypeScript + Vite + Tailwind CSS.
+![iCompose](https://user-images.githubusercontent.com/57297760/251695700-a4f43fb7-2d6a-4415-ac50-859440b45ac0.jpg)
+
+iCompose is a components portfolio made with Vue 3 + TypeScript + Vite + Tailwind CSS. It is still in development, but you can check the progress [here](icompose.netlify.app/). The goals of this project are to practice component development and to have a place to store them for future use migrating them to a monorepo with Lerna or something similar.
+
+Of course, contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## Components list:
 
