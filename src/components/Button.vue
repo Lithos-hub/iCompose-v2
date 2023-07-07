@@ -8,7 +8,8 @@
     max-h-[${maxHeight}px]`"
     :disabled="variant === 'disabled' || disabled"
   >
-    <i :class="icon" v-if="iconLeft" />
+    <!-- By default the icon will be on the left -->
+    <i :class="icon" v-if="iconLeft || icon" />
     <span class="mx-2">
       <slot></slot>
     </span>
@@ -29,7 +30,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

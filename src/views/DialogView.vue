@@ -41,8 +41,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-import Dialog from "../components/Dialog.vue";
-import Button from "../components/Button.vue";
+import Dialog from "@/components/Dialog.vue";
+import Button from "@/components/Button.vue";
 
 const showDialog = ref(false);
 </script>

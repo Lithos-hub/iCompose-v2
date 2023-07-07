@@ -18,8 +18,8 @@
 <script lang="ts" setup>
 import { ref, Ref } from "vue";
 
-import SimpleTable from "../components/SimpleTable/SimpleTable.vue";
-import SimpleTableControls from "../components/SimpleTable/SimpleTableControls.vue";
+import SimpleTable from "@/components/SimpleTable/SimpleTable.vue";
+import SimpleTableControls from "@/components/SimpleTable/SimpleTableControls.vue";
 
 import { banks } from "../api/banks";
 

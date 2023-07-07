@@ -40,10 +40,10 @@
 import { Ref, ref, onMounted, watch, computed } from "vue";
 import loader from "@monaco-editor/loader";
 
-import SmartForm from "../components/SmartForm.vue";
-import Button from "../components/Button.vue";
-import Spinner from "../components/Spinner.vue";
-import Snackbar from "../components/Snackbar.vue";
+import SmartForm from "@/components/SmartForm.vue";
+import Button from "@/components/Button.vue";
+import Spinner from "@/components/Spinner.vue";
+import Snackbar from "@/components/Snackbar.vue";
 
 const jsonCode = ref(`const object = {
     firstName: "John",

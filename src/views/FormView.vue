@@ -75,14 +75,14 @@
 <script lang="ts" setup>
 import { Ref, ref, reactive, toRefs } from "vue";
 
-import Input from "../components/form/Input.vue";
-import Autocomplete from "../components/form/Autocomplete.vue";
-import Select from "../components/form/Select.vue";
-import MultiSelect from "../components/Form/MultiSelect.vue";
-import OTP from "../components/Form/OTP.vue";
-import Textarea from "../components/Form/Textarea.vue";
-import ColorPicker from "../components/Form/ColorPicker.vue";
-import Checkbox from "../components/Form/Checkbox.vue";
+import Input from "@/components/form/Input.vue";
+import Autocomplete from "@/components/form/Autocomplete.vue";
+import Select from "@/components/form/Select.vue";
+import MultiSelect from "@/components/Form/MultiSelect.vue";
+import OTP from "@/components/Form/OTP.vue";
+import Textarea from "@/components/Form/Textarea.vue";
+import ColorPicker from "@/components/Form/ColorPicker.vue";
+import Checkbox from "@/components/Form/Checkbox.vue";
 
 const inputs = reactive({
   normal: "",

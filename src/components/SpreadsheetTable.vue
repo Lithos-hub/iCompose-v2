@@ -65,6 +65,7 @@ import { SpreadsheetOptions } from "../interfaces/spreadsheet";
 
 import useDialog from "../composables/useDialog";
 import useTable from "../composables/useTable";
+
 export default defineComponent({
   setup() {
     const selectedOptions: Ref<SpreadsheetOptions> = ref({
