@@ -1,7 +1,7 @@
 <template>
   <nav
     ref="sideMenu"
-    class="relative h-screen pt-5 bg-white hover:px-8 overflow-y-auto duration-200"
+    class="sticky top-0 left-0 h-screen bg-white hover:px-8 overflow-y-auto duration-200 p-5 border-r z-10"
   >
     <div v-show="show" class="fadeIn">
       <strong class="text-indigo-800">Components list</strong>

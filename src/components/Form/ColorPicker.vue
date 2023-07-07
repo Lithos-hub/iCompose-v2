@@ -16,7 +16,8 @@
         @click="showColorPicker = !showColorPicker"
       >
         <i
-          :class="`fa-solid fa-droplet ${
+          class="fa-sharp fa-solid fa-palette"
+          :class="`${
             selectedColor === 'bg-white' ? 'text-black' : 'text-white'
           }`"
         ></i>
