@@ -94,8 +94,8 @@
 <script lang="ts" setup>
 import { Ref, ref } from "vue";
 
-import Input from "../form/Input.vue";
-import Textarea from "../Form/Textarea.vue";
+import Input from "@/components/Form/Input.vue";
+import Textarea from "@/components/Form/Textarea.vue";
 
 import { EventModel, DateDataModel } from "../../interfaces/calendar";
 import ColorPicker from "../Form/ColorPicker.vue";
@@ -141,7 +141,3 @@ const deleteEvent = (item: EventModel) =>
   emit("delete-event", item, props.date?.day);
 const close = () => emit("close");
 </script>
-
-<style lang="scss" scoped>
-@import "../../scss/app";
-</style>

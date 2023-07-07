@@ -38,7 +38,7 @@ export default defineComponent({
       default: "fa-circle-info",
     },
   },
-  setup(props, { emit }: SetupContext) {
+  setup(_, { emit }: SetupContext) {
     const close = (): void => emit("close-snackbar");
 
     return { close };

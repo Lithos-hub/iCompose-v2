@@ -8,13 +8,9 @@
       Tailwind CSS.
     </p>
     <p class="text-lg mt-5 text-slate-800">
-      Each component have been made from scratch without using third parties
+      Each component has been made from scratch without using third parties
       libraries. The goal is to create a component framework (such as Vuetify or
       Bootstrap) and be able to install and use it in other projects.
     </p>
   </div>
 </template>
-
-<script lang="ts" setup></script>
-
-<style scoped></style>

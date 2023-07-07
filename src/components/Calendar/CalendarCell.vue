@@ -23,9 +23,5 @@ interface Props {
   eventItems?: EventModel[];
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
-
-<style lang="scss" scoped>
-@import "../../scss/app";
-</style>
